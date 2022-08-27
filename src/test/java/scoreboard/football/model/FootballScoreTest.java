@@ -56,8 +56,8 @@ public class FootballScoreTest {
         footballScore.setAwayScore(0);
 
         FootballScore anotherFootballScore = new FootballScore();
-        footballScore.setHomeScore(2);
-        footballScore.setAwayScore(0);
+        anotherFootballScore.setHomeScore(2);
+        anotherFootballScore.setAwayScore(0);
 
         //WHEN
         boolean isEquals = footballScore.equals(anotherFootballScore);
@@ -92,8 +92,8 @@ public class FootballScoreTest {
         footballScore.setAwayScore(0);
 
         FootballScore anotherFootballScore = new FootballScore();
-        footballScore.setHomeScore(2);
-        footballScore.setAwayScore(0);
+        anotherFootballScore.setHomeScore(2);
+        anotherFootballScore.setAwayScore(0);
 
         //WHEN
         boolean isEquals = footballScore.hashCode() == anotherFootballScore.hashCode();
