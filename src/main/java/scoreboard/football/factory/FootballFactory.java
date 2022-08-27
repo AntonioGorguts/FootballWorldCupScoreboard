@@ -8,7 +8,7 @@ import scoreboard.football.model.FootballTeam;
 
 public class FootballFactory implements TeamFactory, TeamMatchFactory<FootballTeam> {
     @Override
-    public Team createTeam(String name) {
+    public FootballTeam createTeam(String name) {
         return null;
     }
 
