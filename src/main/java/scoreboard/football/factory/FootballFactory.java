@@ -32,6 +32,10 @@ public class FootballFactory implements TeamFactory, TeamMatchFactory<FootballTe
             LOGGER.error("The away team name should not be blank!");
             throw new MatchCommonException(ErrorMessageUtil.INVALID_AWAY_TEAM);
         }
+        if(homeTeam.equals(awayTeam)){
+            LOGGER.error(String.format("Home team value %s is the same as away team!", homeTeam.getName()));
+            throw new MatchCommonException(ErrorMessageUtil.SAME_HOME_AWAY_TEAM);
+        }
         return new FootballMatch(homeTeam, awayTeam);
     }
 }
