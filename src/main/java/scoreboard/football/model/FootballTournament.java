@@ -10,10 +10,14 @@ import java.util.Set;
 
 public class FootballTournament implements TeamTournament<FootballTeam>, Tournament<FootballMatch> {
 
+    private static final Comparator<FootballMatch> DEFAULT_COMPARATOR =
+            Comparator.comparing(FootballMatch::getScoreTotal).reversed()
+                    .thenComparing(FootballMatch::getStartDate);
+
     private Comparator<FootballMatch> matchComparator;
 
-    public FootballTournament(){
-
+    public FootballTournament() {
+        matchComparator = DEFAULT_COMPARATOR;
     }
 
     public FootballTournament(Comparator<FootballMatch> matchComparator) {
@@ -22,6 +26,10 @@ public class FootballTournament implements TeamTournament<FootballTeam>, Tournam
 
     public Comparator<FootballMatch> getMatchComparator() {
         return matchComparator;
+    }
+
+    public void setMatchComparator(Comparator<FootballMatch> matchComparator) {
+
     }
 
     @Override

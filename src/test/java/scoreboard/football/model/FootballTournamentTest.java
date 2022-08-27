@@ -38,6 +38,27 @@ public class FootballTournamentTest {
         assertNotNull(footballTournament.getMatchComparator());
     }
 
+    @Test
+    public void shouldThrowExceptionWhenNullComparatorIsPassedToSetter(){
+        //GIVEN WHEN
+        Comparator<FootballMatch> comparator = null;
+        FootballTournament footballTournament = new FootballTournament();
+
+        //THEN
+        assertThrows(NullPointerException.class, () -> footballTournament.setMatchComparator(comparator));
+    }
+
+    @Test
+    public void shouldSetComparatorToTournament(){
+        //GIVEN WHEN
+        Comparator<FootballMatch> comparator = Comparator.comparing(FootballMatch::getScoreTotal);
+        FootballTournament footballTournament = new FootballTournament();
+        footballTournament.setMatchComparator(comparator);
+
+        //THEN
+        assertEquals(footballTournament.getMatchComparator(), comparator);
+    }
+
 //    @Test
 //    public void shouldSortMatchesWithComparator(){
 //        //GIVEN WHEN
