@@ -5,6 +5,7 @@ import org.junit.Test;
 import java.util.Comparator;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThrows;
 
 public class FootballTournamentTest {
@@ -26,6 +27,15 @@ public class FootballTournamentTest {
 
         //THEN
         assertEquals(footballTournament.getMatchComparator(), comparator);
+    }
+
+    @Test
+    public void shouldCreateTournamentWithDefaultComparator(){
+        //GIVEN WHEN
+        FootballTournament footballTournament = new FootballTournament();
+
+        //THEN
+        assertNotNull(footballTournament.getMatchComparator());
     }
 
 //    @Test
