@@ -1,4 +1,4 @@
-package scoreboard.model.score;
+package scoreboard.common.model.score;
 
 public interface TeamScore extends Score{
     int getHomeScore();

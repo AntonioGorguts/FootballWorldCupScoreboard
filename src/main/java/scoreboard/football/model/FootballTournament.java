@@ -1,7 +1,7 @@
 package scoreboard.football.model;
 
-import scoreboard.model.tournament.TeamTournament;
-import scoreboard.model.tournament.Tournament;
+import scoreboard.common.model.tournament.TeamTournament;
+import scoreboard.common.model.tournament.Tournament;
 
 import java.util.List;
 import java.util.Set;

@@ -1,4 +1,4 @@
-package scoreboard.model.match;
+package scoreboard.common.model.match;
 
 import java.util.Date;
 

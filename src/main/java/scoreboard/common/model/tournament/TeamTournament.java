@@ -1,4 +1,4 @@
-package scoreboard.model.tournament;
+package scoreboard.common.model.tournament;
 
 import java.util.Set;
 

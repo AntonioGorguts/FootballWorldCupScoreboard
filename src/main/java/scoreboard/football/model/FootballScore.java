@@ -1,6 +1,6 @@
 package scoreboard.football.model;
 
-import scoreboard.model.score.TeamScore;
+import scoreboard.common.model.score.TeamScore;
 
 public class FootballScore implements TeamScore {
     @Override

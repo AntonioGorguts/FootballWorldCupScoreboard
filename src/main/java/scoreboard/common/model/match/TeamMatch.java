@@ -1,7 +1,7 @@
-package scoreboard.model.match;
+package scoreboard.common.model.match;
 
-import scoreboard.model.score.TeamScore;
-import scoreboard.model.team.Team;
+import scoreboard.common.model.score.TeamScore;
+import scoreboard.common.model.team.Team;
 
 public interface TeamMatch extends Match {
     Team getHomeTeam();

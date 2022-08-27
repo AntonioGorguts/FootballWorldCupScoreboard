@@ -1,6 +1,6 @@
 package scoreboard.football.model;
 
-import scoreboard.model.team.Team;
+import scoreboard.common.model.team.Team;
 
 public class FootballTeam implements Team {
     @Override

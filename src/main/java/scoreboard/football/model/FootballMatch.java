@@ -1,8 +1,8 @@
 package scoreboard.football.model;
 
-import scoreboard.model.match.TeamMatch;
-import scoreboard.model.score.TeamScore;
-import scoreboard.model.team.Team;
+import scoreboard.common.model.match.TeamMatch;
+import scoreboard.common.model.score.TeamScore;
+import scoreboard.common.model.team.Team;
 
 import java.util.Date;
 
