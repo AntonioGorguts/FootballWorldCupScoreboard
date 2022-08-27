@@ -7,6 +7,15 @@ import scoreboard.common.model.team.Team;
 import java.util.Date;
 
 public class FootballMatch implements TeamMatch {
+
+    private final FootballTeam homeTeam;
+    private final FootballTeam awayTeam;
+
+    public FootballMatch(FootballTeam homeTeam, FootballTeam awayTeam) {
+        this.homeTeam = homeTeam;
+        this.awayTeam = awayTeam;
+    }
+
     @Override
     public Date getStartDate() {
         return null;
@@ -14,12 +23,12 @@ public class FootballMatch implements TeamMatch {
 
     @Override
     public Team getHomeTeam() {
-        return null;
+        return homeTeam;
     }
 
     @Override
     public Team getAwayTeam() {
-        return null;
+        return awayTeam;
     }
 
     @Override

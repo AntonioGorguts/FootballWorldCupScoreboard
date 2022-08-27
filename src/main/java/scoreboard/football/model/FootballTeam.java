@@ -12,6 +12,6 @@ public class FootballTeam implements Team {
 
     @Override
     public String getName() {
-        return null;
+        return name;
     }
 }
