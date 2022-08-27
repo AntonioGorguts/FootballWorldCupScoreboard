@@ -29,7 +29,7 @@ public class FootballTournament implements TeamTournament<FootballTeam>, Tournam
     }
 
     public void setMatchComparator(Comparator<FootballMatch> matchComparator) {
-
+        this.matchComparator = Objects.requireNonNull(matchComparator);
     }
 
     @Override
