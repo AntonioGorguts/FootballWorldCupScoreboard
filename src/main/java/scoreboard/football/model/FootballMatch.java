@@ -1,5 +1,7 @@
 package scoreboard.football.model;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 import scoreboard.common.model.match.TeamMatch;
 import scoreboard.common.model.score.TeamScore;
 import scoreboard.common.model.team.Team;
@@ -39,5 +41,21 @@ public class FootballMatch implements TeamMatch {
     @Override
     public Integer getScoreTotal() {
         return null;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+
+        if (!(o instanceof FootballMatch)) return false;
+
+        FootballMatch that = (FootballMatch) o;
+
+        return new EqualsBuilder().append(homeTeam, that.homeTeam).append(awayTeam, that.awayTeam).isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder(17, 37).append(homeTeam).append(awayTeam).toHashCode();
     }
 }
