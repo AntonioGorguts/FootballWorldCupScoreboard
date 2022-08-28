@@ -11,6 +11,26 @@ import static org.junit.Assert.assertTrue;
 public class FootballScoreTest {
 
     @Test
+    public void shouldNotAcceptNegativeValueForHomeScoreInConstructor() {
+        //GIVEN WHEN
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
+                () -> new FootballScore(-2, 0));
+
+        //THEN
+        assertEquals(ErrorMessageUtil.INVALID_HOME_SCORE, exception.getMessage());
+    }
+
+    @Test
+    public void shouldNotAcceptNegativeValueForAwayScoreInConstructor() {
+        //GIVEN WHEN
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
+                () -> new FootballScore(0, -2));
+
+        //THEN
+        assertEquals(ErrorMessageUtil.INVALID_AWAY_SCORE, exception.getMessage());
+    }
+
+    @Test
     public void shouldNotAcceptNegativeValueForHomeScore() {
         //GIVEN
         FootballScore footballScore = new FootballScore(0, 0);
