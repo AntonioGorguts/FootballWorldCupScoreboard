@@ -42,6 +42,14 @@ public class FootballFactory implements AbstractTeamSportFactory<FootballTeam> {
 
     @Override
     public FootballScore createScore(int homeScore, int awayScore) {
-        return null;
+        if (homeScore < 0){
+            LOGGER.error("The home team score should not be negative!");
+            throw new MatchCommonException(ErrorMessageUtil.INVALID_HOME_SCORE);
+        }
+        if (awayScore < 0){
+            LOGGER.error("The away team score should not be negative!");
+            throw new MatchCommonException(ErrorMessageUtil.INVALID_AWAY_SCORE);
+        }
+        return new FootballScore(homeScore, awayScore);
     }
 }

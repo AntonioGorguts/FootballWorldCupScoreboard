@@ -157,7 +157,7 @@ public class FootballFactoryTest {
     public void shouldThrowExceptionWhenAwayScoreIsNegative(){
         //GIVEN WHEN
         MatchCommonException exception = assertThrows(MatchCommonException.class,
-                () -> new FootballScore(0, -2));
+                () -> footballFactory.createScore(0, -2));
 
         //THEN
         assertEquals(ErrorMessageUtil.INVALID_AWAY_SCORE, exception.getMessage());
@@ -169,7 +169,7 @@ public class FootballFactoryTest {
         TeamScore footballScore = footballFactory.createScore(2, 0);
 
         //THEN
-        assertEquals(footballScore, instanceOf(FootballScore.class));
+        assertThat(footballScore, instanceOf(FootballScore.class));
         assertEquals(footballScore.getHomeScore(), Integer.valueOf(2));
         assertEquals(footballScore.getAwayScore(), Integer.valueOf(0));
     }
