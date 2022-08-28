@@ -19,6 +19,9 @@ public class FootballFactoryTest {
 
     private final FootballFactory footballFactory = new FootballFactory();
 
+
+    //    Create team tests
+
     @Test
     public void shouldCreateFootballTeam(){
         //GIVEN
@@ -72,6 +75,8 @@ public class FootballFactoryTest {
         //THEN
         assertEquals(ErrorMessageUtil.INVALID_TEAM_NAME, exception.getMessage());
     }
+
+//    Create match tests
 
     @Test
     public void shouldThrowExceptionWhenFootballHomeTeamNameIsNull(){
@@ -142,6 +147,8 @@ public class FootballFactoryTest {
         //THEN
         assertEquals(ErrorMessageUtil.SAME_HOME_AWAY_TEAM, exception.getMessage());
     }
+
+//    Create score tests
 
     @Test
     public void shouldThrowExceptionWhenHomeScoreIsNegative(){
