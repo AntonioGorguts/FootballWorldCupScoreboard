@@ -6,11 +6,16 @@ import scoreboard.common.model.score.TeamScore;
 import scoreboard.util.ErrorMessageUtil;
 
 public class FootballScore implements TeamScore {
-    private int homeScore = 0;
-    private int awayScore = 0;
+    private Integer homeScore;
+    private Integer awayScore;
+
+    public FootballScore(int homeScore, int awayScore) {
+        this.homeScore = homeScore;
+        this.awayScore = awayScore;
+    }
 
     @Override
-    public int getHomeScore() {
+    public Integer getHomeScore() {
         return homeScore;
     }
 
@@ -22,7 +27,7 @@ public class FootballScore implements TeamScore {
     }
 
     @Override
-    public int getAwayScore() {
+    public Integer getAwayScore() {
         return awayScore;
     }
 

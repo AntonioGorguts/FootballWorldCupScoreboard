@@ -1,9 +1,9 @@
 package scoreboard.common.model.score;
 
 public interface TeamScore extends Score{
-    int getHomeScore();
+    Integer getHomeScore();
 
-    int getAwayScore();
+    Integer getAwayScore();
 
     Integer getScoreTotal();
 }
