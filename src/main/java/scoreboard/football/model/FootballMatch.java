@@ -56,8 +56,13 @@ public class FootballMatch implements TeamMatch {
     }
 
     @Override
+    public String toString() {
+        return homeTeam.toString() + " - " + awayTeam.toString();
+    }
+
+    @Override
     public String toStringWithScore() {
-        return null;
+        return homeTeam.toString() + " " + score.getHomeScore() + " - " + awayTeam.toString() + " " + score.getAwayScore();
     }
 
     @Override

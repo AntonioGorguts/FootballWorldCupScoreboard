@@ -130,6 +130,9 @@ public class FootballTournamentProcessorTest {
 
             //THEN
             assertEquals(scoreboard.size(), 5);
+            assertTrue(scoreboard.get(0).contains(activeMatches.get(0).toStringWithScore()));
+            assertTrue(scoreboard.get(scoreboard.size()-1).contains(activeMatches.get(activeMatches.size()-1)
+                    .toStringWithScore()));
         }
 
         @Test
@@ -294,6 +297,8 @@ public class FootballTournamentProcessorTest {
             //THEN
             assertTrue(outputStreamCaptor.toString().trim().length() > 0);
             assertTrue(outputStreamCaptor.toString().trim().contains(activeMatches.get(0).toStringWithScore()));
+            assertTrue(outputStreamCaptor.toString().trim().contains(activeMatches.get(activeMatches.size() - 1)
+                    .toStringWithScore()));
         }
 
         @After

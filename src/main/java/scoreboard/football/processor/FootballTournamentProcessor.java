@@ -12,9 +12,11 @@ import scoreboard.football.model.FootballTeam;
 import scoreboard.football.model.FootballTournament;
 import scoreboard.util.ErrorMessageUtil;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.IntStream;
 
 public class FootballTournamentProcessor implements TournamentProcessor<FootballMatch>, TeamProcessor<FootballMatch, FootballScore>, Scoreboard {
 
@@ -108,12 +110,41 @@ public class FootballTournamentProcessor implements TournamentProcessor<Football
 
     @Override
     public void printScoreboard() {
-
+        List<FootballMatch> sortedMatches = footballTournament.getSortedMatches();
+        scoreboardCommonValidation(sortedMatches);
+        if(sortedMatches.size() == 0){
+            System.out.println("Currently there are no matches in progress");
+            return;
+        }
+        IntStream.range(0, sortedMatches.size())
+                .forEach(matchIndex -> {
+                    FootballMatch match = sortedMatches.get(matchIndex);
+                    System.out.println(matchIndex + 1 + ": " + match.toStringWithScore());
+                });
     }
 
     @Override
     public List<String> getScoreboard() {
-        return null;
+        List<FootballMatch> sortedMatches = footballTournament.getSortedMatches();
+        scoreboardCommonValidation(sortedMatches);
+        List<String> scoreboard = new ArrayList<>();
+        if(sortedMatches.size() == 0){
+            LOGGER.info("Currently there are no matches in progress");
+            return scoreboard;
+        }
+        IntStream.range(0, sortedMatches.size())
+                .forEach(matchIndex -> {
+                    FootballMatch match = sortedMatches.get(matchIndex);
+                    String scoreboardEntry = matchIndex + 1 + ": " + match.toStringWithScore();
+                    scoreboard.add(scoreboardEntry);
+                });
+        return scoreboard;
+    }
+
+    private void scoreboardCommonValidation(List<FootballMatch> sortedMatches){
+        if (sortedMatches == null){
+            throw new MatchCommonException(ErrorMessageUtil.SCOREBOARD_NOT_NULL);
+        }
     }
 
     private void matchCommonValidation(FootballMatch match){
