@@ -41,7 +41,13 @@ private String formatString(String name){
 ```
 to the equals and hash code method of team to incorporate some way to deal with bad data, as name is used as ID, but there were no no requirements for special characters, symbols, numbers and case were not presented, but it's easy to add them, if needed.
 
-Also adding ID's to the objects in future would be good)
+Also adding ID's to the objects in future would be good
+
+And I created my own exceptions ```MatchCommonException``` for marking them as business logic errors and to easier work with them in the future, like with custom exception interceptors, etc.
+
+But in constructors I maintained the general exceptions as I treat them as lower level and not as a business logic errors
+
+For example, I'm validating the team name only through a factory and letting it be as it is through constructor, but for football score it always should be greater then zero, so there are validations both in factory with custom exception and in the constructor with ```IllegalArgumentException```. Also, same for score setters.
 
 I've added ``FootballWorldCupDemo`` and request directory ``(src/main/java/scoreboard/request)`` only to imitate some form of demo data, so there are no test coverage for them as it it is meant only for presenting the demo of the library functionality
 
