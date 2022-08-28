@@ -21,6 +21,19 @@ public class FootballTeamTest {
     }
 
     @Test
+    public void shouldCompareDifferentTeamObjectsWithSameNameWithErrors(){
+        //GIVEN
+        FootballTeam milanTeam = new FootballTeam("Milan");
+        FootballTeam anotherMilanTeam = new FootballTeam(" milAn ");
+
+        //WHEN
+        boolean isEquals = milanTeam.equals(anotherMilanTeam);
+
+        //THEN
+        assertTrue(isEquals);
+    }
+
+    @Test
     public void shouldCompareDifferentTeamObjectsWithDifferentName(){
         //GIVEN
         FootballTeam milanTeam = new FootballTeam("Milan");
@@ -38,6 +51,19 @@ public class FootballTeamTest {
         //GIVEN
         FootballTeam milanTeam = new FootballTeam("Milan");
         FootballTeam anotherMilanTeam = new FootballTeam("Milan");
+
+        //WHEN
+        boolean isEquals = milanTeam.hashCode() == anotherMilanTeam.hashCode();
+
+        //THEN
+        assertTrue(isEquals);
+    }
+
+    @Test
+    public void shouldCompareDifferentTeamObjectsWithSameHashWithErrors(){
+        //GIVEN
+        FootballTeam milanTeam = new FootballTeam("Milan");
+        FootballTeam anotherMilanTeam = new FootballTeam(" milAn ");
 
         //WHEN
         boolean isEquals = milanTeam.hashCode() == anotherMilanTeam.hashCode();

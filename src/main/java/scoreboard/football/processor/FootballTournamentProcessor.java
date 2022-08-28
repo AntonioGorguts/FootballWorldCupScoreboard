@@ -64,6 +64,10 @@ public class FootballTournamentProcessor implements TournamentProcessor<Football
         FootballTeam homeTeam = match.getHomeTeam();
         FootballTeam awayTeam = match.getAwayTeam();
 
+        if(homeTeam.equals(awayTeam)) {
+            LOGGER.error(String.format("Home team value %s is the same as away team!", homeTeam.getName()));
+            throw new MatchCommonException(ErrorMessageUtil.SAME_HOME_AWAY_TEAM);
+        }
         if(footballMatches.contains(match)) {
             LOGGER.error(String.format("Can't start the new match %s. It's already in progress!!", match));
             throw new MatchCommonException(ErrorMessageUtil.MATCH_ALREADY_PLAYING);

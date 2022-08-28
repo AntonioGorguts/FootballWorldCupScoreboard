@@ -20,11 +20,20 @@ public class FootballWorldCupDemo {
 
     public static void main(String[] args) {
         //        Creating basic objects
-        FootballTournament footballTournament = new FootballTournament();
-        FootballTournamentProcessor footballTournamentProcessor = new FootballTournamentProcessor(footballTournament);
-        FootballFactory footballFactory = new FootballFactory();
 
+        // Utilize the match factory to create a new football match entity
+        FootballFactory footballFactory = new FootballFactory();
+        // Instantiate footballTournament, which contains active matches and teams and comparator to sort matches
+        FootballTournament footballTournament = new FootballTournament();
+        // Instantiate the footballTournamentProcessor, that will deal with tournament functionality
+        FootballTournamentProcessor footballTournamentProcessor = new FootballTournamentProcessor(footballTournament);
+
+        // Instantiate the footballTournamentCommandExecutor, that will trigger FootballTournamentCommand
+        // to deal with footballTournamentProcessor functions
         FootballTournamentCommandExecutor footballTournamentCommandExecutor = new FootballTournamentCommandExecutor();
+
+        // Instantiate the footballScoreboardPrintCommand, that will call print scoreboard method of footballTournamentProcessor
+        // when executed
         FootballScoreboardPrintCommand footballScoreboardPrintCommand
                 = new FootballScoreboardPrintCommand(footballTournamentProcessor);
 

@@ -147,6 +147,20 @@ public class FootballFactoryTest {
         assertEquals(ErrorMessageUtil.SAME_HOME_AWAY_TEAM, exception.getMessage());
     }
 
+    @Test
+    public void shouldThrowExceptionWhenHomeAndAwayTeamNameIsSameWithErrors(){
+        //GIVEN
+        FootballTeam homeTeam = new FootballTeam("homeTeam");
+        FootballTeam awayTeam = new FootballTeam(" hometeam ");
+
+        //WHEN
+        MatchCommonException exception = assertThrows(MatchCommonException.class,
+                () -> footballFactory.createMatch(homeTeam, awayTeam));
+
+        //THEN
+        assertEquals(ErrorMessageUtil.SAME_HOME_AWAY_TEAM, exception.getMessage());
+    }
+
 //    Create score tests
 
     @Test

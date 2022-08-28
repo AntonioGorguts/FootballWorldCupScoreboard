@@ -209,6 +209,36 @@ public class FootballTournamentProcessorTest {
         }
 
         @Test
+        public void shouldThrowExceptionAndNotStartMatchWhenWhenHomeAndAwayTeamNameIsSame(){
+            //GIVEN
+            FootballTeam homeTeam = new FootballTeam("homeTeam");
+            FootballTeam awayTeam = new FootballTeam("homeTeam");
+            FootballMatch footballMatch = new FootballMatch(homeTeam, awayTeam);
+
+            //WHEN
+            MatchCommonException exception = assertThrows(MatchCommonException.class,
+                    () -> footballTournamentProcessor.startMatch(footballMatch));
+
+            //THEN
+            assertEquals(ErrorMessageUtil.SAME_HOME_AWAY_TEAM, exception.getMessage());
+        }
+
+        @Test
+        public void shouldThrowExceptionAndNotStartMatchWhenWhenHomeAndAwayTeamNameIsSameWithErrors(){
+            //GIVEN
+            FootballTeam homeTeam = new FootballTeam("homeTeam");
+            FootballTeam awayTeam = new FootballTeam(" hometeam ");
+            FootballMatch footballMatch = new FootballMatch(homeTeam, awayTeam);
+
+            //WHEN
+            MatchCommonException exception = assertThrows(MatchCommonException.class,
+                    () -> footballTournamentProcessor.startMatch(footballMatch));
+
+            //THEN
+            assertEquals(ErrorMessageUtil.SAME_HOME_AWAY_TEAM, exception.getMessage());
+        }
+
+        @Test
         public void shouldThrowExceptionAndNotStartMatchWhenActiveHomeTeamIsAlreadyPlaying() {
             //GIVEN
             FootballTeam homeTeam = new FootballTeam("Australia");
