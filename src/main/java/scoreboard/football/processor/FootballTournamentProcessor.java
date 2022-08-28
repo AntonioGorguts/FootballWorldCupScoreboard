@@ -43,6 +43,7 @@ public class FootballTournamentProcessor implements TournamentProcessor<Football
         if(footballMatches.contains(match)){
             FootballMatch footballMatch = footballMatches.get(footballMatches.indexOf(match));
             if (footballMatch.getScore().equals(score)){
+                //Not treating same score as before as an error, just an info
                 LOGGER.info(String.format("Score for Football Match %s is already %s", match, score));
             } else {
                 footballMatch.getScore().setHomeScore(score.getHomeScore());
