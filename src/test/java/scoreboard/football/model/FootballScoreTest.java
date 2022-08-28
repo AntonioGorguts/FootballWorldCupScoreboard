@@ -67,6 +67,28 @@ public class FootballScoreTest {
     }
 
     @Test
+    public void shouldSetHomeScore() {
+        //GIVEN WHEN
+        FootballScore footballScore = new FootballScore(2, 0);
+        footballScore.setHomeScore(3);
+
+        //THEN
+        assertEquals(footballScore.getHomeScore(), Integer.valueOf(3));
+        assertEquals(footballScore.getAwayScore(), Integer.valueOf(0));
+    }
+
+    @Test
+    public void shouldSetAwayScore() {
+        //GIVEN WHEN
+        FootballScore footballScore = new FootballScore(2, 0);
+        footballScore.setAwayScore(3);
+
+        //THEN
+        assertEquals(footballScore.getHomeScore(), Integer.valueOf(2));
+        assertEquals(footballScore.getAwayScore(), Integer.valueOf(3));
+    }
+
+    @Test
     public void shouldReturnScoreTotal() {
         //GIVEN
         FootballScore footballScore = new FootballScore(2, 0);

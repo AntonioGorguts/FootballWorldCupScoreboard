@@ -90,6 +90,19 @@ public class FootballMatchTest {
     }
 
     @Test
+    public void shouldCreateMatchWithZeroScoreByDefault(){
+        //GIVEN
+        FootballMatch match = FootballMatchDataGenerator.getFootballMatch();
+
+        //WHEN
+        FootballScore score = match.getScore();
+
+        //THEN
+        assertEquals(score.getHomeScore(), Integer.valueOf(0));
+        assertEquals(score.getAwayScore(), Integer.valueOf(0));
+    }
+
+    @Test
     public void shouldThrowExceptionWhenDateIsNull(){
         //GIVEN
         FootballMatch match = FootballMatchDataGenerator.getFootballMatch();

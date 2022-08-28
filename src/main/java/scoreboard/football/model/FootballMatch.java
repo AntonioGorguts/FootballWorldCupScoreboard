@@ -13,6 +13,7 @@ import java.util.Objects;
 public class FootballMatch implements TeamMatch {
 
     private Date startDate;
+
     private final FootballTeam homeTeam;
     private final FootballTeam awayTeam;
 
@@ -23,7 +24,7 @@ public class FootballMatch implements TeamMatch {
 
     @Override
     public Date getStartDate() {
-        return null;
+        return startDate;
     }
 
     public void setStartDate(Date startDate) {
@@ -34,17 +35,17 @@ public class FootballMatch implements TeamMatch {
     }
 
     @Override
-    public Team getHomeTeam() {
+    public FootballTeam getHomeTeam() {
         return homeTeam;
     }
 
     @Override
-    public Team getAwayTeam() {
+    public FootballTeam getAwayTeam() {
         return awayTeam;
     }
 
     @Override
-    public TeamScore getScore() {
+    public FootballScore getScore() {
         return null;
     }
 
