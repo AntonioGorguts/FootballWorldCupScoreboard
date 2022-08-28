@@ -11,6 +11,7 @@ import scoreboard.common.processor.TournamentProcessor;
 import scoreboard.football.model.FootballTeam;
 import scoreboard.football.model.FootballTournament;
 import scoreboard.util.ErrorMessageUtil;
+import scoreboard.util.MatchMessageUtil;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -113,7 +114,7 @@ public class FootballTournamentProcessor implements TournamentProcessor<Football
         List<FootballMatch> sortedMatches = footballTournament.getSortedMatches();
         scoreboardCommonValidation(sortedMatches);
         if(sortedMatches.size() == 0){
-            System.out.println("Currently there are no matches in progress");
+            System.out.println(MatchMessageUtil.NO_ACTIVE_MATCHES);
             return;
         }
         IntStream.range(0, sortedMatches.size())

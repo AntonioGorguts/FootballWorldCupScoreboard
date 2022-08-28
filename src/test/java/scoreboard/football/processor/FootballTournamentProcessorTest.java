@@ -14,9 +14,11 @@ import scoreboard.football.model.FootballScore;
 import scoreboard.football.model.FootballTeam;
 import scoreboard.football.model.FootballTournament;
 import scoreboard.util.ErrorMessageUtil;
+import scoreboard.util.MatchMessageUtil;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
@@ -25,7 +27,6 @@ import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
@@ -133,6 +134,16 @@ public class FootballTournamentProcessorTest {
             assertTrue(scoreboard.get(0).contains(activeMatches.get(0).toStringWithScore()));
             assertTrue(scoreboard.get(scoreboard.size()-1).contains(activeMatches.get(activeMatches.size()-1)
                     .toStringWithScore()));
+        }
+
+        @Test
+        public void shouldExportEmptyScoreboardWhenThereAreNoActiveMatches() {
+            //GIVEN WHEN
+            when(footballTournament.getSortedMatches()).thenReturn(new ArrayList<>());
+            List<String> scoreboard = footballTournamentProcessor.getScoreboard();
+
+            //THEN
+            assertEquals(scoreboard.size(), 0);
         }
 
         @Test
@@ -299,6 +310,17 @@ public class FootballTournamentProcessorTest {
             assertTrue(outputStreamCaptor.toString().trim().contains(activeMatches.get(0).toStringWithScore()));
             assertTrue(outputStreamCaptor.toString().trim().contains(activeMatches.get(activeMatches.size() - 1)
                     .toStringWithScore()));
+        }
+
+        @Test
+        public void shouldPrintMessageAboutEmptyScoreboard() {
+            //GIVEN WHEN
+            when(footballTournament.getSortedMatches()).thenReturn(new ArrayList<>());
+            footballTournamentProcessor.printScoreboard();
+
+            //THEN
+            assertTrue(outputStreamCaptor.toString().trim().length() > 0);
+            assertEquals(outputStreamCaptor.toString().trim(), MatchMessageUtil.NO_ACTIVE_MATCHES);
         }
 
         @After
