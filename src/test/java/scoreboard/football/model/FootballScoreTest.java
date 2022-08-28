@@ -11,35 +11,35 @@ import static org.junit.Assert.assertTrue;
 public class FootballScoreTest {
 
     @Test
-    public void shouldNotAcceptNegativeValueForHomeScore(){
-        //GIVEN WHEN
-        FootballScore footballScore = new FootballScore();
+    public void shouldNotAcceptNegativeValueForHomeScore() {
+        //GIVEN
+        FootballScore footballScore = new FootballScore(0, 0);
 
+        //WHEN
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
-                () ->  footballScore.setHomeScore(-2));
+                () -> footballScore.setHomeScore(-2));
 
-                        //THEN
+        //THEN
         assertEquals(ErrorMessageUtil.INVALID_HOME_SCORE, exception.getMessage());
     }
 
     @Test
-    public void shouldNotAcceptNegativeValueForAwayScore(){
-        //GIVEN WHEN
-        FootballScore footballScore = new FootballScore();
+    public void shouldNotAcceptNegativeValueForAwayScore() {
+        //GIVEN
+        FootballScore footballScore = new FootballScore(0, 0);
 
+        //WHEN
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
-                () ->  footballScore.setAwayScore(-2));
+                () -> footballScore.setAwayScore(-2));
 
         //THEN
         assertEquals(ErrorMessageUtil.INVALID_AWAY_SCORE, exception.getMessage());
     }
 
     @Test
-    public void shouldReturnScoreTotal(){
+    public void shouldReturnScoreTotal() {
         //GIVEN
-        FootballScore footballScore = new FootballScore();
-        footballScore.setHomeScore(2);
-        footballScore.setAwayScore(0);
+        FootballScore footballScore = new FootballScore(2, 0);
 
         //WHEN
         Integer scoreTotal = footballScore.getScoreTotal();
@@ -49,15 +49,10 @@ public class FootballScoreTest {
     }
 
     @Test
-    public void shouldCompareDifferentScoreObjectsWithSameScore(){
+    public void shouldCompareDifferentScoreObjectsWithSameScore() {
         //GIVEN
-        FootballScore footballScore = new FootballScore();
-        footballScore.setHomeScore(2);
-        footballScore.setAwayScore(0);
-
-        FootballScore anotherFootballScore = new FootballScore();
-        anotherFootballScore.setHomeScore(2);
-        anotherFootballScore.setAwayScore(0);
+        FootballScore footballScore = new FootballScore(2, 0);
+        FootballScore anotherFootballScore = new FootballScore(2, 0);
 
         //WHEN
         boolean isEquals = footballScore.equals(anotherFootballScore);
@@ -67,15 +62,10 @@ public class FootballScoreTest {
     }
 
     @Test
-    public void shouldCompareDifferentScoreObjectsWithDifferentScore(){
+    public void shouldCompareDifferentScoreObjectsWithDifferentScore() {
         //GIVEN
-        FootballScore footballScore = new FootballScore();
-        footballScore.setHomeScore(2);
-        footballScore.setAwayScore(0);
-
-        FootballScore anotherFootballScore = new FootballScore();
-        footballScore.setHomeScore(0);
-        footballScore.setAwayScore(2);
+        FootballScore footballScore = new FootballScore(2, 0);
+        FootballScore anotherFootballScore = new FootballScore(0, 2);
 
         //WHEN
         boolean isEquals = footballScore.equals(anotherFootballScore);
@@ -85,15 +75,10 @@ public class FootballScoreTest {
     }
 
     @Test
-    public void shouldCompareDifferentScoreObjectsWithSameHash(){
+    public void shouldCompareDifferentScoreObjectsWithSameHash() {
         //GIVEN
-        FootballScore footballScore = new FootballScore();
-        footballScore.setHomeScore(2);
-        footballScore.setAwayScore(0);
-
-        FootballScore anotherFootballScore = new FootballScore();
-        anotherFootballScore.setHomeScore(2);
-        anotherFootballScore.setAwayScore(0);
+        FootballScore footballScore = new FootballScore(2, 0);
+        FootballScore anotherFootballScore = new FootballScore(2, 0);
 
         //WHEN
         boolean isEquals = footballScore.hashCode() == anotherFootballScore.hashCode();
@@ -103,15 +88,10 @@ public class FootballScoreTest {
     }
 
     @Test
-    public void shouldCompareDifferentScoreObjectsWithDifferentHash(){
+    public void shouldCompareDifferentScoreObjectsWithDifferentHash() {
         //GIVEN
-        FootballScore footballScore = new FootballScore();
-        footballScore.setHomeScore(2);
-        footballScore.setAwayScore(0);
-
-        FootballScore anotherFootballScore = new FootballScore();
-        footballScore.setHomeScore(0);
-        footballScore.setAwayScore(2);
+        FootballScore footballScore = new FootballScore(2, 0);
+        FootballScore anotherFootballScore = new FootballScore(0, 2);
 
         //WHEN
         boolean isEquals = footballScore.hashCode() == anotherFootballScore.hashCode();
