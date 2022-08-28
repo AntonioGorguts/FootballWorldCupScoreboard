@@ -5,6 +5,7 @@ import org.junit.experimental.runners.Enclosed;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import scoreboard.exception.MatchCommonException;
+import scoreboard.football.datagenerator.FootballMatchDataGenerator;
 import scoreboard.football.model.FootballMatch;
 import scoreboard.football.model.FootballScore;
 import scoreboard.football.model.FootballTeam;
@@ -21,50 +22,50 @@ import static org.mockito.Mockito.mock;
 @RunWith(Enclosed.class)
 public class FootballTournamentProcessorTest {
     public static class NotParametrizedPart {
+
+        private final FootballTournament footballTournament = mock(FootballTournament.class);
+
+        private final FootballTournamentProcessor footballTournamentProcessor = new FootballTournamentProcessor(footballTournament);
+
         @Test
-        public void ShouldStartMatch() {
+        public void shouldStartMatch() {
 
         }
 
         @Test
-        public void ShouldEndMatch() {
+        public void shouldEndMatch() {
 
         }
 
         @Test
-        public void ShouldUpdateScore() {
+        public void shouldUpdateScore() {
 
         }
 
         @Test
-        public void ShouldPrintScoreboard() {
+        public void shouldPrintScoreboard() {
 
         }
 
         @Test
-        public void ShouldExportScoreboard() {
+        public void shouldExportScoreboard() {
 
+        }
+
+        @Test
+        public void shouldNotUpdateScoreWhenScoreIsNull() {
+            //GIVEN
+            FootballMatch footballMatch = FootballMatchDataGenerator.getFootballMatch();
+            FootballScore footballScore = null;
+
+            //WHEN
+            MatchCommonException exception = assertThrows(MatchCommonException.class,
+                    () -> footballTournamentProcessor.updateScore(footballMatch, footballScore));
+
+            //THEN
+            assertEquals(ErrorMessageUtil.SCORE_NOT_NULL, exception.getMessage());
         }
     }
-
-//    @Test
-//    public void ShouldThrowExceptionWhenMatchIsNull(){
-//
-//    }
-//
-//    @Test
-//    public void ShouldThrowExceptionWhenHomeTeamIsNull(){
-//
-//    }
-//
-//    @Test
-//    public void ShouldThrowExceptionWhenAwayTeamIsNull(){
-//
-//    }
-//
-//    private void checkMatchGeneralPart(){
-//
-//    }
 
     @RunWith(Parameterized.class)
     public static class ParameterizedStartMatchCheck{

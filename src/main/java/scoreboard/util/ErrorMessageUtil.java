@@ -10,5 +10,6 @@ public class ErrorMessageUtil {
     public static final String MATCH_NOT_NULL = "Match value can not be null!";
     public static final String HOME_TEAM_NOT_BLANK = "Home Team value can not be blank!";
     public static final String AWAY_TEAM_NOT_BLANK = "Away Team value can not be blank!";
-
+    public static final String SCORE_NOT_NULL = "Score value can not be null!";
+    public static final String START_DATE_WAS_ALREADY_SET = "Start date was already set";
 }

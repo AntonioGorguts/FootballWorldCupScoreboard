@@ -10,6 +10,7 @@ import java.util.Date;
 
 public class FootballMatch implements TeamMatch {
 
+    private Date startDate;
     private final FootballTeam homeTeam;
     private final FootballTeam awayTeam;
 
@@ -21,6 +22,10 @@ public class FootballMatch implements TeamMatch {
     @Override
     public Date getStartDate() {
         return null;
+    }
+
+    public void setStartDate(Date startDate) {
+
     }
 
     @Override

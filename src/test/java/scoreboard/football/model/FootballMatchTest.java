@@ -1,8 +1,14 @@
 package scoreboard.football.model;
 
 import org.junit.Test;
+import scoreboard.football.datagenerator.FootballMatchDataGenerator;
+import scoreboard.util.ErrorMessageUtil;
 
+import java.util.Date;
+
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 
 public class FootballMatchTest {
@@ -11,13 +17,13 @@ public class FootballMatchTest {
     public void shouldCompareDifferentMatchObjectsWithSameTeams(){
         //GIVEN
         FootballTeam milanHomeTeam = new FootballTeam("Milan");
-        FootballTeam realHomeTeam = new FootballTeam("Real");
+        FootballTeam realAwayTeam = new FootballTeam("Real");
 
         FootballTeam anotherMilanHomeTeam = new FootballTeam("Milan");
-        FootballTeam anotherRealHomeTeam = new FootballTeam("Real");
+        FootballTeam anotherRealAwayTeam = new FootballTeam("Real");
 
-        FootballMatch footballMatch = new FootballMatch(milanHomeTeam, realHomeTeam);
-        FootballMatch anotherFootballMatch = new FootballMatch(anotherMilanHomeTeam, anotherRealHomeTeam);
+        FootballMatch footballMatch = new FootballMatch(milanHomeTeam, realAwayTeam);
+        FootballMatch anotherFootballMatch = new FootballMatch(anotherMilanHomeTeam, anotherRealAwayTeam);
 
         //WHEN
         boolean isEquals = footballMatch.equals(anotherFootballMatch);
@@ -30,13 +36,13 @@ public class FootballMatchTest {
     public void shouldCompareDifferentMatchObjectsWithSameHash(){
         //GIVEN
         FootballTeam milanHomeTeam = new FootballTeam("Milan");
-        FootballTeam realHomeTeam = new FootballTeam("Real");
+        FootballTeam realAwayTeam = new FootballTeam("Real");
 
         FootballTeam anotherMilanHomeTeam = new FootballTeam("Milan");
-        FootballTeam anotherRealHomeTeam = new FootballTeam("Real");
+        FootballTeam anotherRealAwayTeam = new FootballTeam("Real");
 
-        FootballMatch footballMatch = new FootballMatch(milanHomeTeam, realHomeTeam);
-        FootballMatch anotherFootballMatch = new FootballMatch(anotherMilanHomeTeam, anotherRealHomeTeam);
+        FootballMatch footballMatch = new FootballMatch(milanHomeTeam, realAwayTeam);
+        FootballMatch anotherFootballMatch = new FootballMatch(anotherMilanHomeTeam, anotherRealAwayTeam);
 
         //WHEN
         boolean isEquals = footballMatch.hashCode() == anotherFootballMatch.hashCode();
@@ -49,13 +55,13 @@ public class FootballMatchTest {
     public void shouldCompareDifferentMatchObjectsWithDifferentTeams(){
         //GIVEN
         FootballTeam milanHomeTeam = new FootballTeam("Milan");
-        FootballTeam realHomeTeam = new FootballTeam("Real");
+        FootballTeam realAwayTeam = new FootballTeam("Real");
 
         FootballTeam anotherMilanHomeTeam = new FootballTeam("Milan-2");
-        FootballTeam anotherRealHomeTeam = new FootballTeam("Real-2");
+        FootballTeam anotherRealAwayTeam = new FootballTeam("Real-2");
 
-        FootballMatch footballMatch = new FootballMatch(milanHomeTeam, realHomeTeam);
-        FootballMatch anotherFootballMatch = new FootballMatch(anotherMilanHomeTeam, anotherRealHomeTeam);
+        FootballMatch footballMatch = new FootballMatch(milanHomeTeam, realAwayTeam);
+        FootballMatch anotherFootballMatch = new FootballMatch(anotherMilanHomeTeam, anotherRealAwayTeam);
 
         //WHEN
         boolean isEquals = footballMatch.equals(anotherFootballMatch);
@@ -68,19 +74,42 @@ public class FootballMatchTest {
     public void shouldCompareDifferentMatchObjectsWithDifferentHash(){
         //GIVEN
         FootballTeam milanHomeTeam = new FootballTeam("Milan");
-        FootballTeam realHomeTeam = new FootballTeam("Real");
+        FootballTeam realAwayTeam = new FootballTeam("Real");
 
         FootballTeam anotherMilanHomeTeam = new FootballTeam("Milan-2");
-        FootballTeam anotherRealHomeTeam = new FootballTeam("Real-2");
+        FootballTeam anotherRealAwayTeam = new FootballTeam("Real-2");
 
-        FootballMatch footballMatch = new FootballMatch(milanHomeTeam, realHomeTeam);
-        FootballMatch anotherFootballMatch = new FootballMatch(anotherMilanHomeTeam, anotherRealHomeTeam);
+        FootballMatch footballMatch = new FootballMatch(milanHomeTeam, realAwayTeam);
+        FootballMatch anotherFootballMatch = new FootballMatch(anotherMilanHomeTeam, anotherRealAwayTeam);
 
         //WHEN
         boolean isEquals = footballMatch.hashCode() == anotherFootballMatch.hashCode();
 
         //THEN
         assertFalse(isEquals);
+    }
+
+    @Test
+    public void shouldThrowExceptionWhenDateIsNull(){
+        //GIVEN
+        FootballMatch match = FootballMatchDataGenerator.getFootballMatch();
+
+        //WHEN THEN
+        assertThrows(NullPointerException.class, () -> match.setStartDate(null));
+    }
+
+    @Test
+    public void shouldThrowExceptionWhenDateIsAlreadySet() {
+        //GIVEN
+        FootballMatch match = FootballMatchDataGenerator.getFootballMatch();
+        match.setStartDate(new Date());
+
+        //WHEN
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
+                () -> match.setStartDate(new Date()));
+
+        //THEN
+        assertEquals(ErrorMessageUtil.START_DATE_WAS_ALREADY_SET, exception.getMessage());
     }
 
 }

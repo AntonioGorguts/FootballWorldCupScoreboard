@@ -19,7 +19,6 @@ public class FootballFactoryTest {
 
     private final FootballFactory footballFactory = new FootballFactory();
 
-
     //    Create team tests
 
     @Test
