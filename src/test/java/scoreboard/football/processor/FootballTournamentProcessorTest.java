@@ -1,5 +1,7 @@
 package scoreboard.football.processor;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.runners.Enclosed;
 import org.junit.runner.RunWith;
@@ -13,6 +15,8 @@ import scoreboard.football.model.FootballTeam;
 import scoreboard.football.model.FootballTournament;
 import scoreboard.util.ErrorMessageUtil;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
@@ -21,6 +25,7 @@ import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
@@ -115,13 +120,16 @@ public class FootballTournamentProcessorTest {
         }
 
         @Test
-        public void shouldPrintScoreboard() {
-
-        }
-
-        @Test
         public void shouldExportScoreboard() {
+            //GIVEN
+            List<FootballMatch> activeMatches = FootballMatchDataGenerator.getActiveMatches();
 
+            //WHEN
+            when(footballTournament.getSortedMatches()).thenReturn(activeMatches);
+            List<String> scoreboard = footballTournamentProcessor.getScoreboard();
+
+            //THEN
+            assertEquals(scoreboard.size(), 5);
         }
 
         @Test
@@ -236,6 +244,61 @@ public class FootballTournamentProcessorTest {
 
             //THEN
             assertEquals(ErrorMessageUtil.MATCH_TIME_IS_IN_FUTURE, exception.getMessage());
+        }
+
+        @Test
+        public void shouldThrowExceptionWhenSortedMatchesAreNullInPrint(){
+            //GIVEN WHEN
+            when(footballTournament.getSortedMatches()).thenReturn(null);
+            MatchCommonException exception = assertThrows(MatchCommonException.class,
+                    footballTournamentProcessor::printScoreboard);
+
+            //THEN
+            assertEquals(ErrorMessageUtil.SCOREBOARD_NOT_NULL, exception.getMessage());
+        }
+
+        @Test
+        public void shouldThrowExceptionWhenSortedMatchesAreNullInExport(){
+            //GIVEN WHEN
+            when(footballTournament.getSortedMatches()).thenReturn(null);
+            MatchCommonException exception = assertThrows(MatchCommonException.class,
+                    footballTournamentProcessor::getScoreboard);
+
+            //THEN
+            assertEquals(ErrorMessageUtil.SCOREBOARD_NOT_NULL, exception.getMessage());
+        }
+    }
+
+    public static class ScoreboardPrintPart {
+        private final FootballTournament footballTournament = mock(FootballTournament.class);
+
+        private final FootballTournamentProcessor footballTournamentProcessor = new FootballTournamentProcessor(footballTournament);
+
+        private final PrintStream standardOut = System.out;
+        private final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
+
+        @Before
+        public void setUp() {
+            System.setOut(new PrintStream(outputStreamCaptor));
+        }
+
+        @Test
+        public void shouldPrintScoreboard() {
+            //GIVEN
+            List<FootballMatch> activeMatches = FootballMatchDataGenerator.getActiveMatches();
+
+            //WHEN
+            when(footballTournament.getSortedMatches()).thenReturn(activeMatches);
+            footballTournamentProcessor.printScoreboard();
+
+            //THEN
+            assertTrue(outputStreamCaptor.toString().trim().length() > 0);
+            assertTrue(outputStreamCaptor.toString().trim().contains(activeMatches.get(0).toStringWithScore()));
+        }
+
+        @After
+        public void tearDown() {
+            System.setOut(standardOut);
         }
     }
 

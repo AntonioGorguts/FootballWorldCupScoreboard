@@ -56,6 +56,11 @@ public class FootballMatch implements TeamMatch {
     }
 
     @Override
+    public String toStringWithScore() {
+        return null;
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
 

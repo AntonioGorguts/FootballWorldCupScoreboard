@@ -11,4 +11,6 @@ public interface TeamMatch extends Match {
     TeamScore getScore();
 
     Integer getScoreTotal();
+
+    String toStringWithScore();
 }
