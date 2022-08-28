@@ -36,6 +36,21 @@ public class FootballTournamentProcessor implements TournamentProcessor<Football
         if(score == null){
             throw new MatchCommonException(ErrorMessageUtil.SCORE_NOT_NULL);
         }
+        List<FootballMatch> footballMatches = footballTournament.getActiveMatches();
+        if(footballMatches.contains(match)){
+            FootballMatch footballMatch = footballMatches.get(footballMatches.indexOf(match));
+            if (footballMatch.getScore().equals(score)){
+                LOGGER.info(String.format("Score for Football Match %s is already %s", match, score));
+            } else {
+                footballMatch.getScore().setHomeScore(score.getHomeScore());
+                footballMatch.getScore().setAwayScore(score.getAwayScore());
+                LOGGER.info(String.format("Score for Football Match %s updated at %s to %s",
+                        match, new Date(), footballMatch.getScore()));
+            }
+        } else {
+            LOGGER.error(String.format("Can't update the match %s score. The match was not found or already ended!", match));
+            throw new MatchCommonException(ErrorMessageUtil.MATCH_NOT_FOUND);
+        }
     }
 
     @Override
@@ -78,6 +93,17 @@ public class FootballTournamentProcessor implements TournamentProcessor<Football
     @Override
     public void endMatch(FootballMatch match) {
         matchCommonValidation(match);
+        List<FootballMatch> footballMatches = footballTournament.getActiveMatches();
+        if(footballMatches.contains(match)) {
+            Set<FootballTeam> activeTeams = footballTournament.getActiveTeams();
+            activeTeams.remove(match.getHomeTeam());
+            activeTeams.remove(match.getAwayTeam());
+            footballTournament.getActiveMatches().remove(match);
+            LOGGER.info(String.format("Football Match %s ended at %s", match, new Date()));
+        } else {
+            LOGGER.error(String.format("Can't end the match %s. The match was not found or already ended!", match));
+            throw new MatchCommonException(ErrorMessageUtil.MATCH_NOT_FOUND);
+        }
     }
 
     @Override
