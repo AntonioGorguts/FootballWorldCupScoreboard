@@ -10,6 +10,12 @@ public class FootballScore implements TeamScore {
     private Integer awayScore;
 
     public FootballScore(int homeScore, int awayScore) {
+        if (homeScore < 0){
+            throw new IllegalArgumentException(ErrorMessageUtil.INVALID_HOME_SCORE);
+        }
+        if (awayScore < 0){
+            throw new IllegalArgumentException(ErrorMessageUtil.INVALID_AWAY_SCORE);
+        }
         this.homeScore = homeScore;
         this.awayScore = awayScore;
     }
