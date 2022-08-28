@@ -41,8 +41,12 @@ to the equals and hash code method of team to incorporate some way to deal with 
 
 Also adding ID's to the objects in future would be good)
 
-I've added ``FootballWorldCupDemo`` and request directory ``(src/main/java/scoreboard/request)`` only to imitate some form of demo data
+I've added ``FootballWorldCupDemo`` and request directory ``(src/main/java/scoreboard/request)`` only to imitate some form of demo data, so there are no test coverage for them as it it is meant only for presenting the demo of the library functionality
 
 Without ``FootballWorldCupDemo`` and request directory (src/main/java/scoreboard/request) the test coverage have this value:
 
 ![img.png](img.png)
+
+With them the coverage is:
+
+![img_4.png](img_4.png)
