@@ -2,17 +2,17 @@ package scoreboard.football.factory;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
-import scoreboard.common.factory.TeamFactory;
-import scoreboard.common.factory.TeamMatchFactory;
+import scoreboard.common.factory.AbstractTeamSportFactory;
+import scoreboard.common.model.score.TeamScore;
 import scoreboard.exception.MatchCommonException;
 import scoreboard.football.model.FootballMatch;
 import scoreboard.football.model.FootballTeam;
 import scoreboard.util.ErrorMessageUtil;
 
-public class FootballFactory implements TeamFactory, TeamMatchFactory<FootballTeam> {
+public class FootballFactory implements AbstractTeamSportFactory<FootballTeam> {
     private static final Logger LOGGER = Logger.getLogger(FootballFactory.class);
 
-    //    Made no check for the length or special symbols because there were no business logic in the task for that
+    //Made no check for the length or special symbols because there were no business logic in the task for that
     @Override
     public FootballTeam createTeam(String name) {
         if(StringUtils.isBlank(name)){
@@ -37,5 +37,10 @@ public class FootballFactory implements TeamFactory, TeamMatchFactory<FootballTe
             throw new MatchCommonException(ErrorMessageUtil.SAME_HOME_AWAY_TEAM);
         }
         return new FootballMatch(homeTeam, awayTeam);
+    }
+
+    @Override
+    public TeamScore createScore(int homeScore, int awayScore) {
+        return null;
     }
 }
