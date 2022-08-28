@@ -13,6 +13,8 @@
 ![img_3.png](img_3.png)
 
 ## Overview
+I decided to write in pure Java without Spring and Maven, etc., but it's easy to add them in the future
+
 This library utilises common objects to create abstract structure for the most match based sport activities in mind.
 As per task requirements it implements only Live Football World Cup Score Board, but I tried to make it as much open 
 for the new match types as possible
