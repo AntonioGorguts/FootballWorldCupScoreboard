@@ -123,6 +123,54 @@ public class FootballTournamentProcessorTest {
         }
 
         @Test
+        public void shouldNotThrowExceptionWhenHomeUpdateScoreIsTheSame() {
+            //GIVEN
+            FootballMatch footballMatch = FootballMatchDataGenerator.getPresentFootballMatch();
+            List<FootballMatch> activeMatches = FootballMatchDataGenerator.getActiveMatches();
+            Set<FootballTeam> activeFootballTeams = FootballTeamDataGenerator.getActiveFootballTeams();
+            FootballScore footballScore = new FootballScore(2,0);
+
+            //WHEN
+            when(footballTournament.getActiveMatches()).thenReturn(activeMatches);
+            when(footballTournament.getActiveTeams()).thenReturn(activeFootballTeams);
+            footballTournamentProcessor.updateScore(footballMatch, footballScore);
+            footballTournamentProcessor.updateScore(footballMatch, footballScore);
+
+            //THEN
+            FootballMatch updatedMatch = activeMatches.get(activeMatches.indexOf(footballMatch));
+            FootballScore updatedMatchScore = updatedMatch.getScore();
+
+            assertEquals(updatedMatchScore.getScoreTotal(), Integer.valueOf(2));
+            assertEquals(updatedMatch.getScoreTotal(), Integer.valueOf(2));
+            assertEquals(updatedMatchScore.getHomeScore(), Integer.valueOf(2));
+            assertEquals(updatedMatchScore.getAwayScore(), Integer.valueOf(0));
+        }
+
+        @Test
+        public void shouldNotThrowExceptionWhenAwayUpdateScoreIsTheSame() {
+            //GIVEN
+            FootballMatch footballMatch = FootballMatchDataGenerator.getPresentFootballMatch();
+            List<FootballMatch> activeMatches = FootballMatchDataGenerator.getActiveMatches();
+            Set<FootballTeam> activeFootballTeams = FootballTeamDataGenerator.getActiveFootballTeams();
+            FootballScore footballScore = new FootballScore(0,2);
+
+            //WHEN
+            when(footballTournament.getActiveMatches()).thenReturn(activeMatches);
+            when(footballTournament.getActiveTeams()).thenReturn(activeFootballTeams);
+            footballTournamentProcessor.updateScore(footballMatch, footballScore);
+            footballTournamentProcessor.updateScore(footballMatch, footballScore);
+
+            //THEN
+            FootballMatch updatedMatch = activeMatches.get(activeMatches.indexOf(footballMatch));
+            FootballScore updatedMatchScore = updatedMatch.getScore();
+
+            assertEquals(updatedMatchScore.getScoreTotal(), Integer.valueOf(2));
+            assertEquals(updatedMatch.getScoreTotal(), Integer.valueOf(2));
+            assertEquals(updatedMatchScore.getHomeScore(), Integer.valueOf(0));
+            assertEquals(updatedMatchScore.getAwayScore(), Integer.valueOf(2));
+        }
+
+        @Test
         public void shouldExportScoreboard() {
             //GIVEN
             List<FootballMatch> activeMatches = FootballMatchDataGenerator.getActiveMatches();
