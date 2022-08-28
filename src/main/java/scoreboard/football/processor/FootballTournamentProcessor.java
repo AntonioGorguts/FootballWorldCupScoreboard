@@ -46,6 +46,14 @@ public class FootballTournamentProcessor implements TournamentProcessor<Football
                 //Not treating same score as before as an error, just an info
                 LOGGER.info(String.format("Score for Football Match %s is already %s", match, score));
             } else {
+                if (footballMatch.getScore().getHomeScore().compareTo(score.getHomeScore()) > 0){
+                    LOGGER.error("The new home score is lesser than previous");
+                    throw new MatchCommonException(ErrorMessageUtil.HOME_SCORE_IS_LESSER_THAN_BEFORE);
+                }
+                if (footballMatch.getScore().getAwayScore().compareTo(score.getAwayScore()) > 0){
+                    LOGGER.error("The new away score is lesser than previous");
+                    throw new MatchCommonException(ErrorMessageUtil.AWAY_SCORE_IS_LESSER_THAN_BEFORE);
+                }
                 footballMatch.getScore().setHomeScore(score.getHomeScore());
                 footballMatch.getScore().setAwayScore(score.getAwayScore());
                 LOGGER.info(String.format("Score for Football Match %s updated at %s to %s",
