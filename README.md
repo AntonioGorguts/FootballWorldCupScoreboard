@@ -61,4 +61,4 @@ Without ``FootballWorldCupDemo`` and request directory (src/main/java/scoreboard
 
 With them the coverage is:
 
-![img_4.png](img_4.png)
+![img_5.png](img_5.png)
