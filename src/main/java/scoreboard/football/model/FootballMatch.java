@@ -13,13 +13,14 @@ import java.util.Objects;
 public class FootballMatch implements TeamMatch {
 
     private Date startDate;
-
+    private final FootballScore score;
     private final FootballTeam homeTeam;
     private final FootballTeam awayTeam;
 
     public FootballMatch(FootballTeam homeTeam, FootballTeam awayTeam) {
         this.homeTeam = homeTeam;
         this.awayTeam = awayTeam;
+        score = new FootballScore(0, 0);
     }
 
     @Override
@@ -46,12 +47,12 @@ public class FootballMatch implements TeamMatch {
 
     @Override
     public FootballScore getScore() {
-        return null;
+        return score;
     }
 
     @Override
     public Integer getScoreTotal() {
-        return null;
+        return score.getScoreTotal();
     }
 
     @Override
