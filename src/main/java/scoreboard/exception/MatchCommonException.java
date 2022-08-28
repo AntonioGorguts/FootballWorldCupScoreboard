@@ -6,7 +6,4 @@ public class MatchCommonException extends RuntimeException {
         super(message);
     }
 
-    public MatchCommonException(String message, Throwable cause) {
-        super(message, cause);
-    }
 }
