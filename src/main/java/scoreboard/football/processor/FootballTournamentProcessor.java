@@ -30,6 +30,9 @@ public class FootballTournamentProcessor implements TournamentProcessor<Football
     @Override
     public void updateScore(FootballMatch footballMatch, FootballScore footballScore) {
         matchCommonValidation(footballMatch);
+        if(footballScore == null){
+            throw new MatchCommonException(ErrorMessageUtil.SCORE_NOT_NULL);
+        }
     }
 
     @Override

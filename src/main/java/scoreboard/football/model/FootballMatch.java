@@ -5,8 +5,10 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import scoreboard.common.model.match.TeamMatch;
 import scoreboard.common.model.score.TeamScore;
 import scoreboard.common.model.team.Team;
+import scoreboard.util.ErrorMessageUtil;
 
 import java.util.Date;
+import java.util.Objects;
 
 public class FootballMatch implements TeamMatch {
 
@@ -25,7 +27,10 @@ public class FootballMatch implements TeamMatch {
     }
 
     public void setStartDate(Date startDate) {
-
+        if (this.startDate != null) {
+            throw new IllegalStateException(ErrorMessageUtil.START_DATE_WAS_ALREADY_SET);
+        }
+        this.startDate = Objects.requireNonNull(startDate);
     }
 
     @Override

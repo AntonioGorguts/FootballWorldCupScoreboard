@@ -105,7 +105,7 @@ public class FootballMatchTest {
         match.setStartDate(new Date());
 
         //WHEN
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
+        IllegalStateException exception = assertThrows(IllegalStateException.class,
                 () -> match.setStartDate(new Date()));
 
         //THEN
