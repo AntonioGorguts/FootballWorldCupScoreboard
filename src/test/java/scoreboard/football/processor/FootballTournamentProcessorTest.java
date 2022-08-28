@@ -27,9 +27,11 @@ import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.when;
 
 @RunWith(Enclosed.class)
@@ -280,6 +282,47 @@ public class FootballTournamentProcessorTest {
 
             //THEN
             assertEquals(ErrorMessageUtil.SCOREBOARD_NOT_NULL, exception.getMessage());
+        }
+    }
+
+    public static class TournamentWithSpyPart {
+        private final FootballTournament footballTournament = spy(new FootballTournament());
+
+        private final FootballTournamentProcessor footballTournamentProcessor = new FootballTournamentProcessor(footballTournament);
+
+        @Test
+        public void shouldStartMatchAndUpdateActiveMatchAndTeamList() {
+            //GIVEN
+            FootballMatch footballMatch = FootballMatchDataGenerator.getAbsentFootballMatch();
+            List<FootballMatch> activeMatches = footballTournament.getActiveMatches();
+            Set<FootballTeam> activeFootballTeams = footballTournament.getActiveTeams();
+
+            //WHEN
+            footballTournamentProcessor.startMatch(footballMatch);
+
+            //THEN
+            assertNotNull(footballTournamentProcessor.getFootballTournament());
+            assertTrue(activeFootballTeams.contains(footballMatch.getHomeTeam()));
+            assertTrue(activeFootballTeams.contains(footballMatch.getAwayTeam()));
+            assertTrue(activeMatches.contains(footballMatch));
+        }
+
+        @Test
+        public void shouldEndMatchAndUpdateActiveMatchAndTeamList() {
+            //GIVEN
+            FootballMatch footballMatch = FootballMatchDataGenerator.getAbsentFootballMatch();
+            List<FootballMatch> activeMatches = footballTournament.getActiveMatches();
+            Set<FootballTeam> activeFootballTeams = footballTournament.getActiveTeams();
+
+            //WHEN
+            footballTournamentProcessor.startMatch(footballMatch);
+            footballTournamentProcessor.endMatch(footballMatch);
+
+            //THEN
+            assertNotNull(footballTournamentProcessor.getFootballTournament());
+            assertFalse(activeFootballTeams.contains(footballMatch.getHomeTeam()));
+            assertFalse(activeFootballTeams.contains(footballMatch.getAwayTeam()));
+            assertFalse(activeMatches.contains(footballMatch));
         }
     }
 
