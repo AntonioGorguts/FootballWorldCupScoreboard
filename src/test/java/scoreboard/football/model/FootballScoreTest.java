@@ -57,6 +57,16 @@ public class FootballScoreTest {
     }
 
     @Test
+    public void shouldCreateScore() {
+        //GIVEN WHEN
+        FootballScore footballScore = new FootballScore(2, 0);
+
+        //THEN
+        assertEquals(footballScore.getHomeScore(), Integer.valueOf(2));
+        assertEquals(footballScore.getAwayScore(), Integer.valueOf(0));
+    }
+
+    @Test
     public void shouldReturnScoreTotal() {
         //GIVEN
         FootballScore footballScore = new FootballScore(2, 0);
