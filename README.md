@@ -57,7 +57,7 @@ I've added ``FootballWorldCupDemo`` and request directory ``(src/main/java/score
 
 Without ``FootballWorldCupDemo`` and request directory (src/main/java/scoreboard/request) the test coverage have this value:
 
-![img.png](img.png)
+![img_4.png](img_4.png)
 
 With them the coverage is:
 
