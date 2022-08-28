@@ -163,6 +163,52 @@ public class FootballTournamentProcessorTest {
         }
 
         @Test
+        public void shouldThrowExceptionAndNotUpdateScoreWhenHomeScoreIsLesserThanPrevious() {
+            //GIVEN
+            FootballMatch footballMatch = FootballMatchDataGenerator.getPresentFootballMatch();
+            List<FootballMatch> activeMatches = FootballMatchDataGenerator.getActiveMatches();
+            Set<FootballTeam> activeFootballTeams = FootballTeamDataGenerator.getActiveFootballTeams();
+            FootballScore footballScore = new FootballScore(2,0);
+
+            //WHEN
+            when(footballTournament.getActiveMatches()).thenReturn(activeMatches);
+            when(footballTournament.getActiveTeams()).thenReturn(activeFootballTeams);
+            footballTournamentProcessor.updateScore(footballMatch, footballScore);
+
+            FootballScore newScore = new FootballScore(1,0);
+
+            //WHEN
+            MatchCommonException exception = assertThrows(MatchCommonException.class,
+                    () -> footballTournamentProcessor.updateScore(footballMatch, newScore));
+
+            //THEN
+            assertEquals(ErrorMessageUtil.HOME_SCORE_IS_LESSER_THAN_BEFORE, exception.getMessage());
+        }
+
+        @Test
+        public void shouldThrowExceptionAndNotUpdateScoreWhenAwayScoreIsLesserThanPrevious() {
+            //GIVEN
+            FootballMatch footballMatch = FootballMatchDataGenerator.getPresentFootballMatch();
+            List<FootballMatch> activeMatches = FootballMatchDataGenerator.getActiveMatches();
+            Set<FootballTeam> activeFootballTeams = FootballTeamDataGenerator.getActiveFootballTeams();
+            FootballScore footballScore = new FootballScore(0,2);
+
+            //WHEN
+            when(footballTournament.getActiveMatches()).thenReturn(activeMatches);
+            when(footballTournament.getActiveTeams()).thenReturn(activeFootballTeams);
+            footballTournamentProcessor.updateScore(footballMatch, footballScore);
+
+            FootballScore newScore = new FootballScore(1,1);
+
+            //WHEN
+            MatchCommonException exception = assertThrows(MatchCommonException.class,
+                    () -> footballTournamentProcessor.updateScore(footballMatch, newScore));
+
+            //THEN
+            assertEquals(ErrorMessageUtil.AWAY_SCORE_IS_LESSER_THAN_BEFORE, exception.getMessage());
+        }
+
+        @Test
         public void shouldThrowExceptionAndNotUpdateScoreWhenMatchIsNotFound() {
             //GIVEN
             FootballMatch footballMatch = FootballMatchDataGenerator.getAbsentFootballMatch();

@@ -18,4 +18,6 @@ public class ErrorMessageUtil {
     public static final String AWAY_TEAM_ALREADY_PLAYING = "Away team is already participating in match!";
     public static final String MATCH_TIME_IS_IN_FUTURE = "The match start date is after the current date!";
     public static final String SCOREBOARD_NOT_NULL = "Scoreboard list should not be null!";
+    public static final String HOME_SCORE_IS_LESSER_THAN_BEFORE = "Home team score value can not be lesser than before!";
+    public static final String AWAY_SCORE_IS_LESSER_THAN_BEFORE = "Away team score value can not be lesser than before!";
 }
