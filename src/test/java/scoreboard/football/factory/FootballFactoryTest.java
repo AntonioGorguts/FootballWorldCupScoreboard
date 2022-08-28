@@ -2,9 +2,11 @@ package scoreboard.football.factory;
 
 import org.junit.Test;
 import scoreboard.common.model.match.TeamMatch;
+import scoreboard.common.model.score.TeamScore;
 import scoreboard.common.model.team.Team;
 import scoreboard.exception.MatchCommonException;
 import scoreboard.football.model.FootballMatch;
+import scoreboard.football.model.FootballScore;
 import scoreboard.football.model.FootballTeam;
 import scoreboard.util.ErrorMessageUtil;
 
@@ -139,5 +141,36 @@ public class FootballFactoryTest {
 
         //THEN
         assertEquals(ErrorMessageUtil.SAME_HOME_AWAY_TEAM, exception.getMessage());
+    }
+
+    @Test
+    public void shouldThrowExceptionWhenHomeScoreIsNegative(){
+        //GIVEN WHEN
+        MatchCommonException exception = assertThrows(MatchCommonException.class,
+                () -> footballFactory.createScore(-2, 0));
+
+        //THEN
+        assertEquals(ErrorMessageUtil.INVALID_HOME_SCORE, exception.getMessage());
+    }
+
+    @Test
+    public void shouldThrowExceptionWhenAwayScoreIsNegative(){
+        //GIVEN WHEN
+        MatchCommonException exception = assertThrows(MatchCommonException.class,
+                () -> new FootballScore(0, -2));
+
+        //THEN
+        assertEquals(ErrorMessageUtil.INVALID_AWAY_SCORE, exception.getMessage());
+    }
+
+    @Test
+    public void shouldCreateScore(){
+        //GIVEN WHEN
+        TeamScore footballScore = footballFactory.createScore(2, 0);
+
+        //THEN
+        assertEquals(footballScore, instanceOf(FootballScore.class));
+        assertEquals(footballScore.getHomeScore(), Integer.valueOf(2));
+        assertEquals(footballScore.getAwayScore(), Integer.valueOf(0));
     }
 }

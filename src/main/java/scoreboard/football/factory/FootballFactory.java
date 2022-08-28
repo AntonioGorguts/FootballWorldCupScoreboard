@@ -6,6 +6,7 @@ import scoreboard.common.factory.AbstractTeamSportFactory;
 import scoreboard.common.model.score.TeamScore;
 import scoreboard.exception.MatchCommonException;
 import scoreboard.football.model.FootballMatch;
+import scoreboard.football.model.FootballScore;
 import scoreboard.football.model.FootballTeam;
 import scoreboard.util.ErrorMessageUtil;
 
@@ -40,7 +41,7 @@ public class FootballFactory implements AbstractTeamSportFactory<FootballTeam> {
     }
 
     @Override
-    public TeamScore createScore(int homeScore, int awayScore) {
+    public FootballScore createScore(int homeScore, int awayScore) {
         return null;
     }
 }
