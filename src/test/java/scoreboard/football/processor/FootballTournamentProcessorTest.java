@@ -6,6 +6,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import scoreboard.exception.MatchCommonException;
 import scoreboard.football.datagenerator.FootballMatchDataGenerator;
+import scoreboard.football.datagenerator.FootballTeamDataGenerator;
 import scoreboard.football.model.FootballMatch;
 import scoreboard.football.model.FootballScore;
 import scoreboard.football.model.FootballTeam;
@@ -14,10 +15,15 @@ import scoreboard.util.ErrorMessageUtil;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Date;
+import java.util.List;
+import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThrows;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 @RunWith(Enclosed.class)
 public class FootballTournamentProcessorTest {
@@ -29,7 +35,20 @@ public class FootballTournamentProcessorTest {
 
         @Test
         public void shouldStartMatch() {
+            //GIVEN
+            FootballMatch footballMatch = getAbsentFootballMatch();
+            List<FootballMatch> activeMatches = FootballMatchDataGenerator.getActiveMatches();
+            Set<FootballTeam> activeFootballTeams = FootballTeamDataGenerator.getActiveFootballTeams();
 
+            //WHEN
+            when(footballTournament.getActiveMatches()).thenReturn(activeMatches);
+            when(footballTournament.getActiveTeams()).thenReturn(activeFootballTeams);
+            footballTournamentProcessor.startMatch(footballMatch);
+
+            //THEN
+            assertTrue(activeFootballTeams.contains(footballMatch.getHomeTeam()));
+            assertTrue(activeFootballTeams.contains(footballMatch.getAwayTeam()));
+            assertTrue(activeMatches.contains(footballMatch));
         }
 
         @Test
@@ -53,7 +72,7 @@ public class FootballTournamentProcessorTest {
         }
 
         @Test
-        public void shouldNotUpdateScoreWhenScoreIsNull() {
+        public void shouldThrowExceptionAndNotUpdateScoreWhenScoreIsNull() {
             //GIVEN
             FootballMatch footballMatch = FootballMatchDataGenerator.getFootballMatch();
             FootballScore footballScore = null;
@@ -64,6 +83,113 @@ public class FootballTournamentProcessorTest {
 
             //THEN
             assertEquals(ErrorMessageUtil.SCORE_NOT_NULL, exception.getMessage());
+        }
+
+        @Test
+        public void shouldThrowExceptionAndNotUpdateScoreWhenMatchIsNotFound() {
+            //GIVEN
+            FootballMatch footballMatch = getAbsentFootballMatch();
+            FootballScore footballScore = new FootballScore(1,1);
+            List<FootballMatch> activeMatches = FootballMatchDataGenerator.getActiveMatches();
+
+            //WHEN
+            when(footballTournament.getActiveMatches()).thenReturn(activeMatches);
+            MatchCommonException exception = assertThrows(MatchCommonException.class,
+                    () -> footballTournamentProcessor.updateScore(footballMatch, footballScore));
+
+            //THEN
+            assertEquals(ErrorMessageUtil.MATCH_NOT_FOUND, exception.getMessage());
+        }
+
+        @Test
+        public void shouldThrowExceptionAndNotEndMatchWhenMatchIsNotFound() {
+            //GIVEN
+            FootballMatch footballMatch = getAbsentFootballMatch();
+            List<FootballMatch> activeMatches = FootballMatchDataGenerator.getActiveMatches();
+
+            //WHEN
+            when(footballTournament.getActiveMatches()).thenReturn(activeMatches);
+            MatchCommonException exception = assertThrows(MatchCommonException.class,
+                    () -> footballTournamentProcessor.endMatch(footballMatch));
+
+            //THEN
+            assertEquals(ErrorMessageUtil.MATCH_NOT_FOUND, exception.getMessage());
+        }
+
+        @Test
+        public void shouldThrowExceptionAndNotStartMatchWhenMatchIsAlreadyInProgress() {
+            //GIVEN
+            FootballMatch footballMatch = FootballMatchDataGenerator.getFootballMatch();
+            List<FootballMatch> activeMatches = FootballMatchDataGenerator.getActiveMatches();
+
+            //WHEN
+            when(footballTournament.getActiveMatches()).thenReturn(activeMatches);
+            MatchCommonException exception = assertThrows(MatchCommonException.class,
+                    () -> footballTournamentProcessor.startMatch(footballMatch));
+
+            //THEN
+            assertEquals(ErrorMessageUtil.MATCH_ALREADY_PLAYING, exception.getMessage());
+        }
+
+        @Test
+        public void shouldThrowExceptionAndNotStartMatchWhenActiveHomeTeamIsAlreadyPlaying() {
+            //GIVEN
+            FootballTeam homeTeam = new FootballTeam("Australia");
+            FootballTeam awayTeam = new FootballTeam("Ukraine");
+            FootballMatch footballMatch = new FootballMatch(homeTeam, awayTeam);
+            List<FootballMatch> activeMatches = FootballMatchDataGenerator.getActiveMatches();
+            Set<FootballTeam> activeFootballTeams = FootballTeamDataGenerator.getActiveFootballTeams();
+
+            //WHEN
+            when(footballTournament.getActiveMatches()).thenReturn(activeMatches);
+            when(footballTournament.getActiveTeams()).thenReturn(activeFootballTeams);
+            MatchCommonException exception = assertThrows(MatchCommonException.class,
+                    () -> footballTournamentProcessor.startMatch(footballMatch));
+
+            //THEN
+            assertEquals(ErrorMessageUtil.HOME_TEAM_ALREADY_PLAYING, exception.getMessage());
+        }
+
+        @Test
+        public void shouldThrowExceptionAndNotStartMatchWhenActiveAwayTeamIsAlreadyPlaying() {
+            //GIVEN
+            FootballTeam homeTeam = new FootballTeam("Ukraine");
+            FootballTeam awayTeam = new FootballTeam("Australia");
+            FootballMatch footballMatch = new FootballMatch(homeTeam, awayTeam);
+            List<FootballMatch> activeMatches = FootballMatchDataGenerator.getActiveMatches();
+            Set<FootballTeam> activeFootballTeams = FootballTeamDataGenerator.getActiveFootballTeams();
+
+            //WHEN
+            when(footballTournament.getActiveMatches()).thenReturn(activeMatches);
+            when(footballTournament.getActiveTeams()).thenReturn(activeFootballTeams);
+            MatchCommonException exception = assertThrows(MatchCommonException.class,
+                    () -> footballTournamentProcessor.startMatch(footballMatch));
+
+            //THEN
+            assertEquals(ErrorMessageUtil.AWAY_TEAM_ALREADY_PLAYING, exception.getMessage());
+        }
+
+        @Test
+        public void shouldThrowExceptionAndStartMatchWhenDateIsAfterNow() {
+            //GIVEN
+            FootballMatch footballMatch = getAbsentFootballMatch();
+            List<FootballMatch> activeMatches = FootballMatchDataGenerator.getActiveMatches();
+            footballMatch.setStartDate(new Date(System.currentTimeMillis() + 100000));
+
+            //WHEN
+            when(footballTournament.getActiveMatches()).thenReturn(activeMatches);
+            MatchCommonException exception = assertThrows(MatchCommonException.class,
+                    () -> footballTournamentProcessor.startMatch(footballMatch));
+
+            //THEN
+            assertEquals(ErrorMessageUtil.MATCH_TIME_IS_IN_FUTURE, exception.getMessage());
+        }
+
+        private FootballMatch getAbsentFootballMatch(){
+            FootballTeam homeTeam = new FootballTeam("Ukraine");
+            FootballTeam awayTeam = new FootballTeam("Poland");
+            FootballMatch footballMatch = new FootballMatch(homeTeam, awayTeam);
+            return footballMatch;
         }
     }
 
