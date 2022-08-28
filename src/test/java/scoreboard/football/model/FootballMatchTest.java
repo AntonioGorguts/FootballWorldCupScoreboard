@@ -92,7 +92,7 @@ public class FootballMatchTest {
     @Test
     public void shouldCreateMatchWithZeroScoreByDefault(){
         //GIVEN
-        FootballMatch match = FootballMatchDataGenerator.getFootballMatch();
+        FootballMatch match = FootballMatchDataGenerator.getPresentFootballMatch();
 
         //WHEN
         FootballScore score = match.getScore();
@@ -105,7 +105,7 @@ public class FootballMatchTest {
     @Test
     public void shouldThrowExceptionWhenDateIsNull(){
         //GIVEN
-        FootballMatch match = FootballMatchDataGenerator.getFootballMatch();
+        FootballMatch match = FootballMatchDataGenerator.getPresentFootballMatch();
 
         //WHEN THEN
         assertThrows(NullPointerException.class, () -> match.setStartDate(null));
@@ -114,7 +114,7 @@ public class FootballMatchTest {
     @Test
     public void shouldThrowExceptionWhenDateIsAlreadySet() {
         //GIVEN
-        FootballMatch match = FootballMatchDataGenerator.getFootballMatch();
+        FootballMatch match = FootballMatchDataGenerator.getPresentFootballMatch();
         match.setStartDate(new Date());
 
         //WHEN

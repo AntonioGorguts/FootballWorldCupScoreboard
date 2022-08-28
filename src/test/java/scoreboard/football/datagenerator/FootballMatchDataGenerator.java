@@ -9,9 +9,16 @@ import java.util.List;
 
 public class FootballMatchDataGenerator {
 
-    public static FootballMatch getFootballMatch(){
+    public static FootballMatch getPresentFootballMatch(){
         FootballTeam homeTeam = new FootballTeam("Mexico");
         FootballTeam awayTeam = new FootballTeam("Canada");
+        FootballMatch footballMatch = new FootballMatch(homeTeam, awayTeam);
+        return footballMatch;
+    }
+
+    public static FootballMatch getAbsentFootballMatch(){
+        FootballTeam homeTeam = new FootballTeam("Ukraine");
+        FootballTeam awayTeam = new FootballTeam("Poland");
         FootballMatch footballMatch = new FootballMatch(homeTeam, awayTeam);
         return footballMatch;
     }
@@ -26,6 +33,16 @@ public class FootballMatchDataGenerator {
         for (FootballMatch match: footballMatches){
             match.setStartDate(new Date());
         }
+        return footballMatches;
+    }
+
+    public static List<FootballMatch> getMatchesWithoutDate(){
+        List<FootballMatch> footballMatches = new ArrayList<>();
+        footballMatches.add(new FootballMatch(new FootballTeam("Argentina"), new FootballTeam("Australia")));
+        footballMatches.add(new FootballMatch(new FootballTeam("Uruguay"), new FootballTeam("Italy")));
+        footballMatches.add(new FootballMatch(new FootballTeam("Germany"), new FootballTeam("France")));
+        footballMatches.add(new FootballMatch(new FootballTeam("Spain"), new FootballTeam("Brazil")));
+        footballMatches.add(new FootballMatch(new FootballTeam("Mexico"), new FootballTeam("Canada")));
         return footballMatches;
     }
 }
