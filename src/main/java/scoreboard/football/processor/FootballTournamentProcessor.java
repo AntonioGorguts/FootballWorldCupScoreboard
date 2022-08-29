@@ -97,11 +97,9 @@ public class FootballTournamentProcessor implements TournamentProcessor<Football
             match.setStartDate(now);
         } else if (match.getStartDate().after(now)) {
             LOGGER.error(String.format("Can't start the new match %s. The match start date is after the current date!", match));
-            throw new MatchCommonException(ErrorMessageUtil.MATCH_TIME_IS_IN_FUTURE);
+            throw new MatchCommonException(ErrorMessageUtil.MATCH_DATE_IS_IN_FUTURE);
         }
 
-        footballTournament.addActiveTeam(homeTeam);
-        footballTournament.addActiveTeam(awayTeam);
         footballTournament.addActiveMatch(match);
         LOGGER.info(String.format("Football Match %s started at %s", match, now));
     }
@@ -111,8 +109,6 @@ public class FootballTournamentProcessor implements TournamentProcessor<Football
         matchCommonValidation(match);
         List<FootballMatch> footballMatches = footballTournament.getActiveMatches();
         if(footballMatches.contains(match)) {
-            footballTournament.removeActiveTeam(match.getHomeTeam());
-            footballTournament.removeActiveTeam(match.getAwayTeam());
             footballTournament.removeActiveMatch(match);
             LOGGER.info(String.format("Football Match %s ended at %s", match, new Date()));
         } else {

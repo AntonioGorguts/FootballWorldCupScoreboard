@@ -143,17 +143,16 @@ public class FootballMatchTest {
     @Test
     public void shouldThrowExceptionWhenDateIsNull(){
         //GIVEN
-        FootballMatch match = FootballMatchDataGenerator.getPresentFootballMatch();
+        FootballMatch footballMatch = FootballMatchDataGenerator.getPresentFootballWithoutDate();
 
         //WHEN THEN
-        assertThrows(NullPointerException.class, () -> match.setStartDate(null));
+        assertThrows(NullPointerException.class, () -> footballMatch.setStartDate(null));
     }
 
     @Test
     public void shouldThrowExceptionWhenDateIsAlreadySet() {
         //GIVEN
         FootballMatch match = FootballMatchDataGenerator.getPresentFootballMatch();
-        match.setStartDate(new Date());
 
         //WHEN
         IllegalStateException exception = assertThrows(IllegalStateException.class,

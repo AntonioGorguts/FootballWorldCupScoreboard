@@ -337,7 +337,7 @@ public class FootballTournamentProcessorTest {
         @Test
         public void shouldThrowExceptionAndStartMatchWhenDateIsAfterNow() {
             //GIVEN
-            FootballMatch footballMatch = FootballMatchDataGenerator.getAbsentFootballMatch();
+            FootballMatch footballMatch = FootballMatchDataGenerator.getAbsentFootballMatchWithoutDate();
             List<FootballMatch> activeMatches = FootballMatchDataGenerator.getActiveMatches();
             footballMatch.setStartDate(new Date(System.currentTimeMillis() + 100000));
 
@@ -347,7 +347,7 @@ public class FootballTournamentProcessorTest {
                     () -> footballTournamentProcessor.startMatch(footballMatch));
 
             //THEN
-            assertEquals(ErrorMessageUtil.MATCH_TIME_IS_IN_FUTURE, exception.getMessage());
+            assertEquals(ErrorMessageUtil.MATCH_DATE_IS_IN_FUTURE, exception.getMessage());
         }
 
         @Test
@@ -441,6 +441,25 @@ public class FootballTournamentProcessorTest {
             Set<FootballTeam> activeFootballTeams = footballTournament.getActiveTeams();
 
             assertFalse(activeFootballTeams.contains(team));
+        }
+
+        @Test
+        public void shouldStartMatchWithoutDateAndUpdateActiveMatchAndTeamList() {
+            //GIVEN
+            FootballMatch footballMatch = FootballMatchDataGenerator.getAbsentFootballMatchWithoutDate();
+
+            //WHEN
+            footballTournamentProcessor.startMatch(footballMatch);
+
+            //THEN
+            Set<FootballTeam> activeFootballTeams = footballTournament.getActiveTeams();
+            List<FootballMatch> activeMatches = footballTournament.getActiveMatches();
+
+            assertNotNull(footballTournamentProcessor.getFootballTournament());
+            assertNotNull(footballMatch.getStartDate());
+            assertTrue(activeFootballTeams.contains(footballMatch.getHomeTeam()));
+            assertTrue(activeFootballTeams.contains(footballMatch.getAwayTeam()));
+            assertTrue(activeMatches.contains(footballMatch));
         }
     }
 

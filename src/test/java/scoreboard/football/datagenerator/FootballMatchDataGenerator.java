@@ -13,10 +13,26 @@ public class FootballMatchDataGenerator {
         FootballTeam homeTeam = new FootballTeam("Mexico");
         FootballTeam awayTeam = new FootballTeam("Canada");
         FootballMatch footballMatch = new FootballMatch(homeTeam, awayTeam);
+        footballMatch.setStartDate(new Date());
+        return footballMatch;
+    }
+
+    public static FootballMatch getPresentFootballWithoutDate(){
+        FootballTeam homeTeam = new FootballTeam("Mexico");
+        FootballTeam awayTeam = new FootballTeam("Canada");
+        FootballMatch footballMatch = new FootballMatch(homeTeam, awayTeam);
         return footballMatch;
     }
 
     public static FootballMatch getAbsentFootballMatch(){
+        FootballTeam homeTeam = new FootballTeam("Ukraine");
+        FootballTeam awayTeam = new FootballTeam("Poland");
+        FootballMatch footballMatch = new FootballMatch(homeTeam, awayTeam);
+        footballMatch.setStartDate(new Date());
+        return footballMatch;
+    }
+
+    public static FootballMatch getAbsentFootballMatchWithoutDate(){
         FootballTeam homeTeam = new FootballTeam("Ukraine");
         FootballTeam awayTeam = new FootballTeam("Poland");
         FootballMatch footballMatch = new FootballMatch(homeTeam, awayTeam);

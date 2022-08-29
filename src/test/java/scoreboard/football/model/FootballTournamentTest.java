@@ -4,10 +4,8 @@ import org.junit.Test;
 import org.junit.experimental.runners.Enclosed;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
-import scoreboard.exception.MatchCommonException;
 import scoreboard.football.datagenerator.FootballComparatorDataGenerator;
 import scoreboard.football.datagenerator.FootballMatchDataGenerator;
-import scoreboard.football.processor.FootballTournamentProcessor;
 import scoreboard.util.ErrorMessageUtil;
 
 import java.util.Arrays;
@@ -160,6 +158,35 @@ public class FootballTournamentTest {
         }
 
         @Test
+        public void shouldAddTeamsWhenAddingMatchToTheTournament(){
+            //GIVEN
+            FootballTournament footballTournament = new FootballTournament();
+            FootballMatch match = FootballMatchDataGenerator.getAbsentFootballMatch();
+
+            //WHEN
+            footballTournament.addActiveMatch(match);
+
+            //THEN
+            assertTrue(footballTournament.getActiveTeams().contains(match.getHomeTeam()));
+            assertTrue(footballTournament.getActiveTeams().contains(match.getAwayTeam()));
+        }
+
+        @Test
+        public void shouldRemoveTeamsWhenRemovingMatchFromTheTournament(){
+            //GIVEN
+            FootballTournament footballTournament = new FootballTournament();
+            FootballMatch match = FootballMatchDataGenerator.getAbsentFootballMatch();
+
+            //WHEN
+            footballTournament.addActiveMatch(match);
+            footballTournament.removeActiveMatch(match);
+
+            //THEN
+            assertFalse(footballTournament.getActiveTeams().contains(match.getHomeTeam()));
+            assertFalse(footballTournament.getActiveTeams().contains(match.getAwayTeam()));
+        }
+
+        @Test
         public void shouldThrowExceptionWhenTeamIsAlreadyPlaying(){
             FootballTournament footballTournament = new FootballTournament();
             FootballTeam team = new FootballTeam("Mexico");
@@ -213,6 +240,35 @@ public class FootballTournamentTest {
 
             //THEN
             assertEquals(ErrorMessageUtil.MATCH_NOT_FOUND, exception.getMessage());
+        }
+
+        @Test
+        public void shouldThrowExceptionWhenMatchDateIsNull(){
+            //GIVEN
+            FootballTournament footballTournament = new FootballTournament();
+            FootballMatch match = FootballMatchDataGenerator.getAbsentFootballMatchWithoutDate();
+
+            //WHEN
+            IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
+                    () -> footballTournament.addActiveMatch(match));
+
+            //THEN
+            assertEquals(ErrorMessageUtil.MATCH_DATE_IS_NULL, exception.getMessage());
+        }
+
+        @Test
+        public void shouldThrowExceptionWhenMatchDateIsInFuture(){
+            //GIVEN
+            FootballTournament footballTournament = new FootballTournament();
+            FootballMatch match = FootballMatchDataGenerator.getAbsentFootballMatchWithoutDate();
+            match.setStartDate(new Date(System.currentTimeMillis() + 100000));
+
+            //WHEN
+            IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
+                    () -> footballTournament.addActiveMatch(match));
+
+            //THEN
+            assertEquals(ErrorMessageUtil.MATCH_DATE_IS_IN_FUTURE, exception.getMessage());
         }
 
     }

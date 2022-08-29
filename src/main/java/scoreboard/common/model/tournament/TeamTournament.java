@@ -2,8 +2,8 @@ package scoreboard.common.model.tournament;
 
 import java.util.Set;
 
-public interface TeamTournament<Team> {
-    Set<Team> getActiveTeams();
-    void addActiveTeam(Team team);
-    void removeActiveTeam(Team team);
+public abstract class TeamTournament<Team, Match> implements Tournament<Match> {
+    public abstract Set<Team> getActiveTeams();
+    protected abstract void addActiveTeam(Team team);
+    protected abstract void removeActiveTeam(Team team);
 }
