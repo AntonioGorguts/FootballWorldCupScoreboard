@@ -400,14 +400,15 @@ public class FootballTournamentProcessorTest {
         public void shouldEndMatchAndUpdateActiveMatchAndTeamList() {
             //GIVEN
             FootballMatch footballMatch = FootballMatchDataGenerator.getAbsentFootballMatch();
-            List<FootballMatch> activeMatches = footballTournament.getActiveMatches();
-            Set<FootballTeam> activeFootballTeams = footballTournament.getActiveTeams();
 
             //WHEN
             footballTournamentProcessor.startMatch(footballMatch);
             footballTournamentProcessor.endMatch(footballMatch);
 
             //THEN
+            List<FootballMatch> activeMatches = footballTournament.getActiveMatches();
+            Set<FootballTeam> activeFootballTeams = footballTournament.getActiveTeams();
+
             assertNotNull(footballTournamentProcessor.getFootballTournament());
             assertFalse(activeFootballTeams.contains(footballMatch.getHomeTeam()));
             assertFalse(activeFootballTeams.contains(footballMatch.getAwayTeam()));
