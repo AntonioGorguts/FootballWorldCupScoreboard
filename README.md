@@ -53,9 +53,9 @@ Also, I'm not treating the same score as before, when trying to update the score
 
 For example, match Mexico 0 - Canada 5, and update comes with same scores Mexico 0 - Canada 5, so it's better to just inform user, but not to throw some exceptions, but that's depends on business logic again
 
-I've added ``FootballWorldCupDemo`` and request directory ``(src/main/java/scoreboard/request)`` only to imitate some form of demo data, so there are no test coverage for them as it it is meant only for presenting the demo of the library functionality
+I've added ``demo.FootballWorldCupDemo`` and request directory ``(src/main/java/demo/request)`` only to imitate some form of demo data, so there are no test coverage for them as it it is meant only for presenting the demo of the library functionality
 
-Without ``FootballWorldCupDemo`` and request directory (src/main/java/scoreboard/request) the test coverage have this value:
+Without ``demo.FootballWorldCupDemo`` and request directory ``(src/main/java/demo/request)`` the test coverage have this value:
 
 ![img_4.png](img_4.png)
 

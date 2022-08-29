@@ -1,4 +1,4 @@
-package scoreboard.request;
+package demo.request;
 
 //Added for demo
 public class FootballMatchUpdateScoreRequestDto {

@@ -1,11 +1,11 @@
-package scoreboard.request;
+package demo.request;
 
 //Added for demo
-public class FootballMatchStartRequestDto {
+public class FootballMatchEndRequestDto {
     private String homeTeam;
     private String awayTeam;
 
-    public FootballMatchStartRequestDto(String homeTeam, String awayTeam) {
+    public FootballMatchEndRequestDto(String homeTeam, String awayTeam) {
         this.homeTeam = homeTeam;
         this.awayTeam = awayTeam;
     }

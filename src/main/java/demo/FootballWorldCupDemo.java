@@ -1,3 +1,5 @@
+package demo;
+
 import scoreboard.football.command.FootballTournamentCommandExecutor;
 import scoreboard.football.command.match.FootballMatchEndCommand;
 import scoreboard.football.command.match.FootballMatchStartCommand;
@@ -9,9 +11,9 @@ import scoreboard.football.model.FootballScore;
 import scoreboard.football.model.FootballTeam;
 import scoreboard.football.model.FootballTournament;
 import scoreboard.football.processor.FootballTournamentProcessor;
-import scoreboard.request.FootballMatchEndRequestDto;
-import scoreboard.request.FootballMatchStartRequestDto;
-import scoreboard.request.FootballMatchUpdateScoreRequestDto;
+import demo.request.FootballMatchEndRequestDto;
+import demo.request.FootballMatchStartRequestDto;
+import demo.request.FootballMatchUpdateScoreRequestDto;
 
 import java.util.ArrayList;
 import java.util.Date;
