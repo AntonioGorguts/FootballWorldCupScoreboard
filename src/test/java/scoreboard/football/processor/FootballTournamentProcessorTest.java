@@ -414,6 +414,34 @@ public class FootballTournamentProcessorTest {
             assertFalse(activeFootballTeams.contains(footballMatch.getAwayTeam()));
             assertFalse(activeMatches.contains(footballMatch));
         }
+
+        @Test
+        public void shouldNotAddMatchToActiveMatchesManually() {
+            //GIVEN
+            FootballMatch footballMatch = FootballMatchDataGenerator.getAbsentFootballMatch();
+
+            //WHEN
+            footballTournamentProcessor.getFootballTournament().getActiveMatches().add(footballMatch);
+
+            //THEN
+            List<FootballMatch> activeMatches = footballTournament.getActiveMatches();
+
+            assertFalse(activeMatches.contains(footballMatch));
+        }
+
+        @Test
+        public void shouldNotAddTeamToActiveTeamsManually() {
+            //GIVEN
+            FootballTeam team = new FootballTeam("Mexico");
+
+            //WHEN
+            footballTournamentProcessor.getFootballTournament().getActiveTeams().add(team);
+
+            //THEN
+            Set<FootballTeam> activeFootballTeams = footballTournament.getActiveTeams();
+
+            assertFalse(activeFootballTeams.contains(team));
+        }
     }
 
     public static class ScoreboardProcessorPrintPart {
