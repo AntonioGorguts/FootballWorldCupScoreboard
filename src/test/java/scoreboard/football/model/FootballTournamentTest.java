@@ -79,31 +79,6 @@ public class FootballTournamentTest {
         }
 
         @Test
-        public void shouldSortMatchesWithComparator() {
-            //GIVEN
-            Comparator<FootballMatch> comparator = FootballComparatorDataGenerator.getDefaultComparator();
-            FootballTournament footballTournament = spy(new FootballTournament(comparator));
-            List<FootballMatch> activeMatches = FootballMatchDataGenerator.getMatchesWithoutDate();
-            List<FootballMatch> matchesWithoutSort = FootballMatchDataGenerator.getMatchesWithoutDate();
-
-            IntStream.range(0, activeMatches.size())
-                    .forEach(matchIndex -> {
-                        FootballMatch match = activeMatches.get(matchIndex);
-                        match.getScore().setHomeScore(1);
-                        match.setStartDate(new Date(System.currentTimeMillis() - matchIndex));
-                    });
-
-            //WHEN
-            when(footballTournament.getActiveMatches()).thenReturn(activeMatches);
-
-            //THEN
-            FootballMatch firstMatch = footballTournament.getSortedMatches().get(0);
-            FootballMatch lastMatch = footballTournament.getSortedMatches().get(footballTournament.getSortedMatches().size() - 1);
-            assertEquals(firstMatch, matchesWithoutSort.get(matchesWithoutSort.size() - 1));
-            assertEquals(lastMatch, matchesWithoutSort.get(0));
-        }
-
-        @Test
         public void shouldAddMatchToTheTournament(){
             //GIVEN
             FootballTournament footballTournament = new FootballTournament();

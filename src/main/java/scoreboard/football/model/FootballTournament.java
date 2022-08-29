@@ -5,6 +5,7 @@ import scoreboard.common.model.tournament.TeamTournament;
 import scoreboard.util.ErrorMessageUtil;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.HashSet;
@@ -41,19 +42,19 @@ public class FootballTournament extends TeamTournament<FootballTeam, FootballMat
     //To not allow to change actual list through getter
     @Override
     public List<FootballMatch> getActiveMatches() {
-        return new ArrayList<>(activeMatches);
+        return Collections.unmodifiableList(activeMatches);
     }
 
     //To not allow to change actual set through getter
     @Override
     public Set<FootballTeam> getActiveTeams() {
-        return new HashSet<>(activeTeams);
+        return Collections.unmodifiableSet(activeTeams);
     }
 
     @Override
     public List<FootballMatch> getSortedMatches() {
         //to leave the original list in original order
-        List<FootballMatch> matches = new ArrayList<>(getActiveMatches());
+        List<FootballMatch> matches = new ArrayList<>(activeMatches);
         matches.sort(matchComparator);
         return matches;
     }

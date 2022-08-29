@@ -7,6 +7,7 @@ import org.junit.experimental.runners.Enclosed;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import scoreboard.exception.MatchCommonException;
+import scoreboard.football.datagenerator.FootballComparatorDataGenerator;
 import scoreboard.football.datagenerator.FootballMatchDataGenerator;
 import scoreboard.football.datagenerator.FootballTeamDataGenerator;
 import scoreboard.football.model.FootballMatch;
@@ -21,9 +22,11 @@ import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.IntStream;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -421,11 +424,11 @@ public class FootballTournamentProcessorTest {
             FootballMatch footballMatch = FootballMatchDataGenerator.getAbsentFootballMatch();
 
             //WHEN
-            footballTournamentProcessor.getFootballTournament().getActiveMatches().add(footballMatch);
+            assertThrows(UnsupportedOperationException.class,
+                    () -> footballTournamentProcessor.getFootballTournament().getActiveMatches().add(footballMatch));
 
             //THEN
             List<FootballMatch> activeMatches = footballTournament.getActiveMatches();
-
             assertFalse(activeMatches.contains(footballMatch));
         }
 
@@ -435,7 +438,8 @@ public class FootballTournamentProcessorTest {
             FootballTeam team = new FootballTeam("Mexico");
 
             //WHEN
-            footballTournamentProcessor.getFootballTournament().getActiveTeams().add(team);
+            assertThrows(UnsupportedOperationException.class,
+                    () -> footballTournamentProcessor.getFootballTournament().getActiveTeams().add(team));
 
             //THEN
             Set<FootballTeam> activeFootballTeams = footballTournament.getActiveTeams();
@@ -460,6 +464,32 @@ public class FootballTournamentProcessorTest {
             assertTrue(activeFootballTeams.contains(footballMatch.getHomeTeam()));
             assertTrue(activeFootballTeams.contains(footballMatch.getAwayTeam()));
             assertTrue(activeMatches.contains(footballMatch));
+        }
+
+        @Test
+        public void shouldSortMatchesWithComparator() {
+            //GIVEN
+            Comparator<FootballMatch> comparator = FootballComparatorDataGenerator.getDefaultComparator();
+            FootballTournament footballTournament = spy(new FootballTournament(comparator));
+            List<FootballMatch> activeMatches = FootballMatchDataGenerator.getMatchesWithoutDate();
+            List<FootballMatch> matchesWithoutSort = FootballMatchDataGenerator.getMatchesWithoutDate();
+
+            //WHEN
+            IntStream.range(0, activeMatches.size())
+                    .forEach(matchIndex -> {
+                        FootballMatch match = activeMatches.get(matchIndex);
+                        match.getScore().setHomeScore(1);
+                        int testMillis = (matchIndex + 1) * 1000;
+                        match.setStartDate(new Date(System.currentTimeMillis() - testMillis));
+                        footballTournament.addActiveMatch(match);
+                    });
+
+            //THEN
+            List<FootballMatch> sortedMatches = footballTournament.getSortedMatches();
+            FootballMatch firstMatch = sortedMatches.get(0);
+            FootballMatch lastMatch = sortedMatches.get(sortedMatches.size() - 1);
+            assertEquals(firstMatch, matchesWithoutSort.get(matchesWithoutSort.size() - 1));
+            assertEquals(lastMatch, matchesWithoutSort.get(0));
         }
     }
 

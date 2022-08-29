@@ -14,6 +14,7 @@ import scoreboard.request.FootballMatchStartRequestDto;
 import scoreboard.request.FootballMatchUpdateScoreRequestDto;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class FootballWorldCupDemo {
@@ -56,13 +57,17 @@ public class FootballWorldCupDemo {
         footballMatchStartRequestDtos.add(footballMatchStartRequestDto1);
 
         //        Starting matches
+        int timerIndex = footballMatchStartRequestDtos.size();
         for (FootballMatchStartRequestDto footballMatchStartRequestDto : footballMatchStartRequestDtos) {
             FootballTeam homeTeam = footballFactory.createTeam(footballMatchStartRequestDto.getHomeTeam());
             FootballTeam awayTeam = footballFactory.createTeam(footballMatchStartRequestDto.getAwayTeam());
             FootballMatch footballMatch = footballFactory.createMatch(homeTeam, awayTeam);
+            int testMillis = timerIndex * 1000;
+            footballMatch.setStartDate(new Date(System.currentTimeMillis() - testMillis));
             FootballMatchStartCommand matchStartCommand
                     = new FootballMatchStartCommand(footballTournamentProcessor, footballMatch);
             footballTournamentCommandExecutor.executeOperation(matchStartCommand);
+            timerIndex--;
         }
 
         footballTournamentCommandExecutor.executeOperation(footballScoreboardPrintCommand);
