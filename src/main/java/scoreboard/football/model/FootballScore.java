@@ -29,6 +29,9 @@ public class FootballScore implements TeamScore {
         if (homeScore < 0){
             throw new IllegalArgumentException(ErrorMessageUtil.INVALID_HOME_SCORE);
         }
+        if (this.homeScore > homeScore){
+            throw new IllegalArgumentException(ErrorMessageUtil.HOME_SCORE_IS_LESSER_THAN_BEFORE);
+        }
         this.homeScore = homeScore;
     }
 
@@ -40,6 +43,9 @@ public class FootballScore implements TeamScore {
     public void setAwayScore(int awayScore) {
         if (awayScore < 0){
             throw new IllegalArgumentException(ErrorMessageUtil.INVALID_AWAY_SCORE);
+        }
+        if (this.awayScore > awayScore){
+            throw new IllegalArgumentException(ErrorMessageUtil.AWAY_SCORE_IS_LESSER_THAN_BEFORE);
         }
         this.awayScore = awayScore;
     }

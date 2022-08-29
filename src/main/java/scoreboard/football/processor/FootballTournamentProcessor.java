@@ -100,9 +100,9 @@ public class FootballTournamentProcessor implements TournamentProcessor<Football
             throw new MatchCommonException(ErrorMessageUtil.MATCH_TIME_IS_IN_FUTURE);
         }
 
-        activeTeams.add(homeTeam);
-        activeTeams.add(awayTeam);
-        footballTournament.getActiveMatches().add(match);
+        footballTournament.addActiveTeam(homeTeam);
+        footballTournament.addActiveTeam(awayTeam);
+        footballTournament.addActiveMatch(match);
         LOGGER.info(String.format("Football Match %s started at %s", match, now));
     }
 
@@ -111,10 +111,9 @@ public class FootballTournamentProcessor implements TournamentProcessor<Football
         matchCommonValidation(match);
         List<FootballMatch> footballMatches = footballTournament.getActiveMatches();
         if(footballMatches.contains(match)) {
-            Set<FootballTeam> activeTeams = footballTournament.getActiveTeams();
-            activeTeams.remove(match.getHomeTeam());
-            activeTeams.remove(match.getAwayTeam());
-            footballTournament.getActiveMatches().remove(match);
+            footballTournament.removeActiveTeam(match.getHomeTeam());
+            footballTournament.removeActiveTeam(match.getAwayTeam());
+            footballTournament.removeActiveMatch(match);
             LOGGER.info(String.format("Football Match %s ended at %s", match, new Date()));
         } else {
             LOGGER.error(String.format("Can't end the match %s. The match was not found or already ended!", match));
@@ -163,12 +162,15 @@ public class FootballTournamentProcessor implements TournamentProcessor<Football
 
     private void matchCommonValidation(FootballMatch match){
         if (match == null){
+            LOGGER.error("Match should not be null!");
             throw new MatchCommonException(ErrorMessageUtil.MATCH_NOT_NULL);
         }
         if (match.getHomeTeam() == null || StringUtils.isBlank(match.getHomeTeam().getName())){
+            LOGGER.error("Home team could not be blank!");
             throw new MatchCommonException(ErrorMessageUtil.HOME_TEAM_NOT_BLANK);
         }
         if (match.getAwayTeam() == null || StringUtils.isBlank(match.getAwayTeam().getName())){
+            LOGGER.error("Away team could not be blank!");
             throw new MatchCommonException(ErrorMessageUtil.AWAY_TEAM_NOT_BLANK);
         }
     }

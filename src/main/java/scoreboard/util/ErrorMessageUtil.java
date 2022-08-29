@@ -14,6 +14,8 @@ public class ErrorMessageUtil {
     public static final String START_DATE_WAS_ALREADY_SET = "Start date was already set";
     public static final String MATCH_NOT_FOUND = "Match was not found in tournament list!";
     public static final String MATCH_ALREADY_PLAYING = "The match is already participating in progress!";
+    public static final String TEAM_ALREADY_PLAYING = "Team is already participating in match!";
+    public static final String TEAM_IS_ABSENT = "Team is absent from the active match list!";
     public static final String HOME_TEAM_ALREADY_PLAYING = "Home team is already participating in match!";
     public static final String AWAY_TEAM_ALREADY_PLAYING = "Away team is already participating in match!";
     public static final String MATCH_TIME_IS_IN_FUTURE = "The match start date is after the current date!";

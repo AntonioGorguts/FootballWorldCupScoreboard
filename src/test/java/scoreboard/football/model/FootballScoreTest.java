@@ -151,4 +151,30 @@ public class FootballScoreTest {
         //THEN
         assertFalse(isEquals);
     }
+
+    @Test
+    public void shouldNotAcceptLesserValueForHomeScore() {
+        //GIVEN
+        FootballScore footballScore = new FootballScore(3, 0);
+
+        //WHEN
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
+                () -> footballScore.setHomeScore(1));
+
+        //THEN
+        assertEquals(ErrorMessageUtil.HOME_SCORE_IS_LESSER_THAN_BEFORE, exception.getMessage());
+    }
+
+    @Test
+    public void shouldNotAcceptLesserValueForAwayScore() {
+        //GIVEN
+        FootballScore footballScore = new FootballScore(0, 3);
+
+        //WHEN
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
+                () -> footballScore.setAwayScore(1));
+
+        //THEN
+        assertEquals(ErrorMessageUtil.AWAY_SCORE_IS_LESSER_THAN_BEFORE, exception.getMessage());
+    }
 }

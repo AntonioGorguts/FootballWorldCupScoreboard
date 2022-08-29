@@ -43,42 +43,6 @@ public class FootballTournamentProcessorTest {
         private final FootballTournamentProcessor footballTournamentProcessor = new FootballTournamentProcessor(footballTournament);
 
         @Test
-        public void shouldStartMatch() {
-            //GIVEN
-            FootballMatch footballMatch = FootballMatchDataGenerator.getAbsentFootballMatch();
-            List<FootballMatch> activeMatches = FootballMatchDataGenerator.getActiveMatches();
-            Set<FootballTeam> activeFootballTeams = FootballTeamDataGenerator.getActiveFootballTeams();
-
-            //WHEN
-            when(footballTournament.getActiveMatches()).thenReturn(activeMatches);
-            when(footballTournament.getActiveTeams()).thenReturn(activeFootballTeams);
-            footballTournamentProcessor.startMatch(footballMatch);
-
-            //THEN
-            assertTrue(activeFootballTeams.contains(footballMatch.getHomeTeam()));
-            assertTrue(activeFootballTeams.contains(footballMatch.getAwayTeam()));
-            assertTrue(activeMatches.contains(footballMatch));
-        }
-
-        @Test
-        public void shouldEndMatch() {
-            //GIVEN
-            FootballMatch footballMatch = FootballMatchDataGenerator.getPresentFootballMatch();
-            List<FootballMatch> activeMatches = FootballMatchDataGenerator.getActiveMatches();
-            Set<FootballTeam> activeFootballTeams = FootballTeamDataGenerator.getActiveFootballTeams();
-
-            //WHEN
-            when(footballTournament.getActiveMatches()).thenReturn(activeMatches);
-            when(footballTournament.getActiveTeams()).thenReturn(activeFootballTeams);
-            footballTournamentProcessor.endMatch(footballMatch);
-
-            //THEN
-            assertFalse(activeFootballTeams.contains(footballMatch.getHomeTeam()));
-            assertFalse(activeFootballTeams.contains(footballMatch.getAwayTeam()));
-            assertFalse(activeMatches.contains(footballMatch));
-        }
-
-        @Test
         public void shouldUpdateScoreAndNotChangeMatchAndTeamList() {
             //GIVEN
             FootballMatch footballMatch = FootballMatchDataGenerator.getPresentFootballMatch();
@@ -418,13 +382,14 @@ public class FootballTournamentProcessorTest {
         public void shouldStartMatchAndUpdateActiveMatchAndTeamList() {
             //GIVEN
             FootballMatch footballMatch = FootballMatchDataGenerator.getAbsentFootballMatch();
-            List<FootballMatch> activeMatches = footballTournament.getActiveMatches();
-            Set<FootballTeam> activeFootballTeams = footballTournament.getActiveTeams();
 
             //WHEN
             footballTournamentProcessor.startMatch(footballMatch);
 
             //THEN
+            Set<FootballTeam> activeFootballTeams = footballTournament.getActiveTeams();
+            List<FootballMatch> activeMatches = footballTournament.getActiveMatches();
+
             assertNotNull(footballTournamentProcessor.getFootballTournament());
             assertTrue(activeFootballTeams.contains(footballMatch.getHomeTeam()));
             assertTrue(activeFootballTeams.contains(footballMatch.getAwayTeam()));
