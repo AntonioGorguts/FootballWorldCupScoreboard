@@ -3,7 +3,6 @@ package scoreboard.football.factory;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import scoreboard.common.factory.AbstractTeamSportFactory;
-import scoreboard.common.model.score.TeamScore;
 import scoreboard.exception.MatchCommonException;
 import scoreboard.football.model.FootballMatch;
 import scoreboard.football.model.FootballScore;

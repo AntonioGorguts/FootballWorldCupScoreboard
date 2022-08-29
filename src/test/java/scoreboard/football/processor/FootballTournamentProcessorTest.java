@@ -450,7 +450,7 @@ public class FootballTournamentProcessorTest {
         }
     }
 
-    public static class ScoreboardPrintPart {
+    public static class ScoreboardProcessorPrintPart {
         private final FootballTournament footballTournament = mock(FootballTournament.class);
 
         private final FootballTournamentProcessor footballTournamentProcessor = new FootballTournamentProcessor(footballTournament);

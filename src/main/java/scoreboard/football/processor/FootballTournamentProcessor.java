@@ -2,7 +2,7 @@ package scoreboard.football.processor;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
-import scoreboard.common.model.scoreboard.Scoreboard;
+import scoreboard.common.processor.ScoreboardProcessor;
 import scoreboard.exception.MatchCommonException;
 import scoreboard.football.model.FootballMatch;
 import scoreboard.football.model.FootballScore;
@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.IntStream;
 
-public class FootballTournamentProcessor implements TournamentProcessor<FootballMatch>, TeamProcessor<FootballMatch, FootballScore>, Scoreboard {
+public class FootballTournamentProcessor implements TournamentProcessor<FootballMatch>, TeamProcessor<FootballMatch, FootballScore>, ScoreboardProcessor {
 
     private static final Logger LOGGER = Logger.getLogger(FootballTournamentProcessor.class);
 

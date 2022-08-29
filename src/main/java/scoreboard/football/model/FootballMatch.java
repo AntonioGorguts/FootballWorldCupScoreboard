@@ -3,8 +3,6 @@ package scoreboard.football.model;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import scoreboard.common.model.match.TeamMatch;
-import scoreboard.common.model.score.TeamScore;
-import scoreboard.common.model.team.Team;
 import scoreboard.util.ErrorMessageUtil;
 
 import java.util.Date;
