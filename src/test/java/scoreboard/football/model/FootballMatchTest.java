@@ -33,6 +33,25 @@ public class FootballMatchTest {
     }
 
     @Test
+    public void shouldCompareDifferentMatchObjectsWithSameTeamsWithErrors(){
+        //GIVEN
+        FootballTeam milanHomeTeam = new FootballTeam("Milan");
+        FootballTeam realAwayTeam = new FootballTeam("Real");
+
+        FootballTeam anotherMilanHomeTeam = new FootballTeam("   Milan  ");
+        FootballTeam anotherRealAwayTeam = new FootballTeam("ReAL");
+
+        FootballMatch footballMatch = new FootballMatch(milanHomeTeam, realAwayTeam);
+        FootballMatch anotherFootballMatch = new FootballMatch(anotherMilanHomeTeam, anotherRealAwayTeam);
+
+        //WHEN
+        boolean isEquals = footballMatch.equals(anotherFootballMatch);
+
+        //THEN
+        assertTrue(isEquals);
+    }
+
+    @Test
     public void shouldCompareDifferentMatchObjectsWithSameHash(){
         //GIVEN
         FootballTeam milanHomeTeam = new FootballTeam("Milan");
@@ -40,6 +59,25 @@ public class FootballMatchTest {
 
         FootballTeam anotherMilanHomeTeam = new FootballTeam("Milan");
         FootballTeam anotherRealAwayTeam = new FootballTeam("Real");
+
+        FootballMatch footballMatch = new FootballMatch(milanHomeTeam, realAwayTeam);
+        FootballMatch anotherFootballMatch = new FootballMatch(anotherMilanHomeTeam, anotherRealAwayTeam);
+
+        //WHEN
+        boolean isEquals = footballMatch.hashCode() == anotherFootballMatch.hashCode();
+
+        //THEN
+        assertTrue(isEquals);
+    }
+
+    @Test
+    public void shouldCompareDifferentMatchObjectsWithSameHashWithErrors(){
+        //GIVEN
+        FootballTeam milanHomeTeam = new FootballTeam("Milan");
+        FootballTeam realAwayTeam = new FootballTeam("Real");
+
+        FootballTeam anotherMilanHomeTeam = new FootballTeam("   Milan  ");
+        FootballTeam anotherRealAwayTeam = new FootballTeam("ReAL");
 
         FootballMatch footballMatch = new FootballMatch(milanHomeTeam, realAwayTeam);
         FootballMatch anotherFootballMatch = new FootballMatch(anotherMilanHomeTeam, anotherRealAwayTeam);
