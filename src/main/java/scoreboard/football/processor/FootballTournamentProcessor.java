@@ -34,30 +34,30 @@ public class FootballTournamentProcessor implements TournamentProcessor<Football
     }
 
     @Override
-    public void updateScore(FootballMatch match, FootballScore score) {
+    public void updateScore(FootballMatch match, FootballScore newScore) {
         matchCommonValidation(match);
-        if(score == null){
+        if(newScore == null){
             throw new MatchCommonException(ErrorMessageUtil.SCORE_NOT_NULL);
         }
         List<FootballMatch> footballMatches = footballTournament.getActiveMatches();
         if(footballMatches.contains(match)){
             FootballMatch footballMatch = footballMatches.get(footballMatches.indexOf(match));
-            if (footballMatch.getScore().equals(score)){
+            FootballScore score = footballMatch.getScore();
+            if (score.equals(newScore)){
                 //Not treating same score as before as an error, just an info
-                LOGGER.info(String.format("Score for Football Match %s is already %s", match, score));
+                LOGGER.info(String.format("Score for Football Match %s is already %s", match, newScore));
             } else {
-                if (footballMatch.getScore().getHomeScore().compareTo(score.getHomeScore()) > 0){
+                if (score.getHomeScore().compareTo(newScore.getHomeScore()) > 0){
                     LOGGER.error("The new home score is lesser than previous");
                     throw new MatchCommonException(ErrorMessageUtil.HOME_SCORE_IS_LESSER_THAN_BEFORE);
                 }
-                if (footballMatch.getScore().getAwayScore().compareTo(score.getAwayScore()) > 0){
+                if (score.getAwayScore().compareTo(newScore.getAwayScore()) > 0){
                     LOGGER.error("The new away score is lesser than previous");
                     throw new MatchCommonException(ErrorMessageUtil.AWAY_SCORE_IS_LESSER_THAN_BEFORE);
                 }
-                footballMatch.getScore().setHomeScore(score.getHomeScore());
-                footballMatch.getScore().setAwayScore(score.getAwayScore());
+                footballMatch.setScore(newScore);
                 LOGGER.info(String.format("Score for Football Match %s updated at %s to %s",
-                        match, new Date(), footballMatch.getScore()));
+                        match, new Date(), score));
             }
         } else {
             LOGGER.error(String.format("Can't update the match %s score. The match was not found or already ended!", match));

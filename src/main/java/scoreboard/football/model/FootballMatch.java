@@ -48,6 +48,12 @@ public class FootballMatch implements TeamMatch {
         return score;
     }
 
+    public void setScore(FootballScore newScore) {
+        Objects.requireNonNull(newScore);
+        score.setHomeScore(newScore.getHomeScore());
+        score.setAwayScore(newScore.getAwayScore());
+    }
+
     @Override
     public Integer getScoreTotal() {
         return score.getScoreTotal();

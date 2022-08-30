@@ -150,6 +150,15 @@ public class FootballMatchTest {
     }
 
     @Test
+    public void shouldThrowExceptionWhenNewScoreIsNull(){
+        //GIVEN
+        FootballMatch footballMatch = FootballMatchDataGenerator.getPresentFootballMatch();
+
+        //WHEN THEN
+        assertThrows(NullPointerException.class, () -> footballMatch.setScore(null));
+    }
+
+    @Test
     public void shouldThrowExceptionWhenDateIsAlreadySet() {
         //GIVEN
         FootballMatch match = FootballMatchDataGenerator.getPresentFootballMatch();
