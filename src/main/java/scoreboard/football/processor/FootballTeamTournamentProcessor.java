@@ -7,7 +7,7 @@ import scoreboard.exception.MatchCommonException;
 import scoreboard.football.model.FootballMatch;
 import scoreboard.football.model.FootballScore;
 import scoreboard.common.processor.TeamProcessor;
-import scoreboard.common.processor.TournamentProcessor;
+import scoreboard.common.processor.TeamTournamentProcessor;
 import scoreboard.football.model.FootballTeam;
 import scoreboard.football.model.FootballTournament;
 import scoreboard.util.ErrorMessageUtil;
@@ -19,13 +19,13 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.IntStream;
 
-public class FootballTournamentProcessor implements TournamentProcessor<FootballMatch>, TeamProcessor<FootballMatch, FootballScore>, ScoreboardProcessor {
+public class FootballTeamTournamentProcessor extends TeamTournamentProcessor<FootballMatch, FootballScore> {
 
-    private static final Logger LOGGER = Logger.getLogger(FootballTournamentProcessor.class);
+    private static final Logger LOGGER = Logger.getLogger(FootballTeamTournamentProcessor.class);
 
     private final FootballTournament footballTournament;
 
-    public FootballTournamentProcessor(FootballTournament footballTournament) {
+    public FootballTeamTournamentProcessor(FootballTournament footballTournament) {
         this.footballTournament = footballTournament;
     }
 

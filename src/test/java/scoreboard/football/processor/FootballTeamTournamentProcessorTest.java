@@ -38,12 +38,12 @@ import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.when;
 
 @RunWith(Enclosed.class)
-public class FootballTournamentProcessorTest {
+public class FootballTeamTournamentProcessorTest {
     public static class NotParametrizedPart {
 
         private final FootballTournament footballTournament = mock(FootballTournament.class);
 
-        private final FootballTournamentProcessor footballTournamentProcessor = new FootballTournamentProcessor(footballTournament);
+        private final FootballTeamTournamentProcessor footballTournamentProcessor = new FootballTeamTournamentProcessor(footballTournament);
 
         @Test
         public void shouldUpdateScoreAndNotChangeMatchAndTeamList() {
@@ -379,7 +379,7 @@ public class FootballTournamentProcessorTest {
     public static class TournamentWithSpyPart {
         private final FootballTournament footballTournament = spy(new FootballTournament());
 
-        private final FootballTournamentProcessor footballTournamentProcessor = new FootballTournamentProcessor(footballTournament);
+        private final FootballTeamTournamentProcessor footballTournamentProcessor = new FootballTeamTournamentProcessor(footballTournament);
 
         @Test
         public void shouldStartMatchAndUpdateActiveMatchAndTeamList() {
@@ -496,7 +496,7 @@ public class FootballTournamentProcessorTest {
     public static class ScoreboardProcessorPrintPart {
         private final FootballTournament footballTournament = mock(FootballTournament.class);
 
-        private final FootballTournamentProcessor footballTournamentProcessor = new FootballTournamentProcessor(footballTournament);
+        private final FootballTeamTournamentProcessor footballTournamentProcessor = new FootballTeamTournamentProcessor(footballTournament);
 
         private final PrintStream standardOut = System.out;
         private final ByteArrayOutputStream outputStreamCaptor = new ByteArrayOutputStream();
@@ -544,7 +544,7 @@ public class FootballTournamentProcessorTest {
 
         private final FootballTournament footballTournament = mock(FootballTournament.class);
 
-        private final FootballTournamentProcessor footballTournamentProcessor = new FootballTournamentProcessor(footballTournament);
+        private final FootballTeamTournamentProcessor footballTournamentProcessor = new FootballTeamTournamentProcessor(footballTournament);
 
         private String name;
         private FootballMatch match;
@@ -587,7 +587,7 @@ public class FootballTournamentProcessorTest {
     public static class ParameterizedEndMatchCheck{
         private final FootballTournament footballTournament = mock(FootballTournament.class);
 
-        private final FootballTournamentProcessor footballTournamentProcessor = new FootballTournamentProcessor(footballTournament);
+        private final FootballTeamTournamentProcessor footballTournamentProcessor = new FootballTeamTournamentProcessor(footballTournament);
 
         private String name;
         private FootballMatch match;
@@ -630,7 +630,7 @@ public class FootballTournamentProcessorTest {
     public static class ParameterizedUpdateScoreMatchCheck{
         private final FootballTournament footballTournament = mock(FootballTournament.class);
 
-        private final FootballTournamentProcessor footballTournamentProcessor = new FootballTournamentProcessor(footballTournament);
+        private final FootballTeamTournamentProcessor footballTournamentProcessor = new FootballTeamTournamentProcessor(footballTournament);
 
         private String name;
         private FootballMatch match;

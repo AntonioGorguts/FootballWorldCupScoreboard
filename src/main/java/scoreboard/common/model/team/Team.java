@@ -1,5 +1,5 @@
 package scoreboard.common.model.team;
 
-public interface Team {
-    String getName();
+public abstract class Team {
+    public abstract String getName();
 }

@@ -8,7 +8,7 @@ import scoreboard.util.ErrorMessageUtil;
 import java.util.Date;
 import java.util.Objects;
 
-public class FootballMatch implements TeamMatch {
+public class FootballMatch extends TeamMatch {
 
     private Date startDate;
     private final FootballScore score;
@@ -26,6 +26,7 @@ public class FootballMatch implements TeamMatch {
         return startDate;
     }
 
+    @Override
     public void setStartDate(Date startDate) {
         if (this.startDate != null) {
             throw new IllegalStateException(ErrorMessageUtil.START_DATE_WAS_ALREADY_SET);

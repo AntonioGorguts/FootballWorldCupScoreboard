@@ -7,7 +7,7 @@ import scoreboard.common.model.team.Team;
 
 //Made no setter for name because I guess there must be more complex logic to change the name of the team,
 //like, for example, we need to check if it's participating in some tournaments and/or matches, etc.
-public class FootballTeam implements Team {
+public class FootballTeam extends Team {
 
     private final String name;
 

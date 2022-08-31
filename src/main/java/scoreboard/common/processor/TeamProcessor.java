@@ -1,5 +1,8 @@
 package scoreboard.common.processor;
 
-public interface TeamProcessor<TeamMatch, TeamScore> {
-    void updateScore(TeamMatch match, TeamScore score);
+import scoreboard.common.model.match.TeamMatch;
+import scoreboard.common.model.score.TeamScore;
+
+public interface TeamProcessor<TM extends TeamMatch, TS extends TeamScore> {
+    void updateScore(TM match, TS score);
 }

@@ -23,4 +23,5 @@ public class ErrorMessageUtil {
     public static final String SCOREBOARD_NOT_NULL = "Scoreboard list should not be null!";
     public static final String HOME_SCORE_IS_LESSER_THAN_BEFORE = "Home team score value can not be lesser than before!";
     public static final String AWAY_SCORE_IS_LESSER_THAN_BEFORE = "Away team score value can not be lesser than before!";
+    public static final String CANNOT_CREATE_FACTORY = "Cannot create factory instance";
 }

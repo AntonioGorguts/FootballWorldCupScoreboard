@@ -7,9 +7,14 @@ import scoreboard.exception.MatchCommonException;
 import scoreboard.football.model.FootballMatch;
 import scoreboard.football.model.FootballScore;
 import scoreboard.football.model.FootballTeam;
+import scoreboard.football.model.FootballTournament;
+import scoreboard.football.processor.FootballTeamTournamentProcessor;
 import scoreboard.util.ErrorMessageUtil;
 
-public class FootballFactory implements AbstractTeamSportFactory<FootballTeam> {
+import java.util.Comparator;
+
+public class FootballFactory implements AbstractTeamSportFactory<FootballTeam, FootballMatch, FootballTournament, FootballScore, FootballTeamTournamentProcessor>{
+
     private static final Logger LOGGER = Logger.getLogger(FootballFactory.class);
 
     //Made no check for the length or special symbols because there were no business logic in the task for that
@@ -50,5 +55,21 @@ public class FootballFactory implements AbstractTeamSportFactory<FootballTeam> {
             throw new MatchCommonException(ErrorMessageUtil.INVALID_AWAY_SCORE);
         }
         return new FootballScore(homeScore, awayScore);
+    }
+
+    @Override
+    public FootballTournament createTournament(Comparator<FootballMatch> matchComparator) {
+        if(matchComparator == null) {
+            return new FootballTournament();
+        }
+        return new FootballTournament(matchComparator);
+    }
+
+    @Override
+    public FootballTeamTournamentProcessor createTournamentProcessor(FootballTournament tournament) {
+        if(tournament == null){
+            LOGGER.error("Tournament for the FootballTeamTournamentProcessor was not initialized");
+        }
+        return new FootballTeamTournamentProcessor(tournament);
     }
 }

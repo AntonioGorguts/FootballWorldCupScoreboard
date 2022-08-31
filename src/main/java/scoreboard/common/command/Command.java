@@ -1,5 +1,5 @@
 package scoreboard.common.command;
 
-public interface TournamentCommand {
+public interface Command {
     void execute();
 }

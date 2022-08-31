@@ -1,16 +1,16 @@
 package demo;
 
-import scoreboard.football.command.FootballTournamentCommandExecutor;
-import scoreboard.football.command.match.FootballMatchEndCommand;
-import scoreboard.football.command.match.FootballMatchStartCommand;
-import scoreboard.football.command.match.FootballMatchUpdateScoreCommand;
-import scoreboard.football.command.scoreboard.FootballScoreboardPrintCommand;
+import scoreboard.common.command.match.MatchEndCommand;
+import scoreboard.common.command.match.MatchStartCommand;
+import scoreboard.common.command.match.MatchUpdateScoreCommand;
+import scoreboard.common.command.scoreboard.ScoreboardPrintCommand;
+import scoreboard.common.command.tournament.TournamentCommandExecutor;
 import scoreboard.football.factory.FootballFactory;
 import scoreboard.football.model.FootballMatch;
 import scoreboard.football.model.FootballScore;
 import scoreboard.football.model.FootballTeam;
 import scoreboard.football.model.FootballTournament;
-import scoreboard.football.processor.FootballTournamentProcessor;
+import scoreboard.football.processor.FootballTeamTournamentProcessor;
 import demo.request.FootballMatchEndRequestDto;
 import demo.request.FootballMatchStartRequestDto;
 import demo.request.FootballMatchUpdateScoreRequestDto;
@@ -29,16 +29,16 @@ public class FootballWorldCupDemo {
         // Instantiate footballTournament, which contains active matches and teams and comparator to sort matches
         FootballTournament footballTournament = new FootballTournament();
         // Instantiate the footballTournamentProcessor, that will deal with tournament functionality
-        FootballTournamentProcessor footballTournamentProcessor = new FootballTournamentProcessor(footballTournament);
+        FootballTeamTournamentProcessor footballTournamentProcessor = new FootballTeamTournamentProcessor(footballTournament);
 
         // Instantiate the footballTournamentCommandExecutor, that will trigger FootballTournamentCommand
         // to deal with footballTournamentProcessor functions
-        FootballTournamentCommandExecutor footballTournamentCommandExecutor = new FootballTournamentCommandExecutor();
+        TournamentCommandExecutor tournamentCommandExecutor = new TournamentCommandExecutor();
 
         // Instantiate the footballScoreboardPrintCommand, that will call print scoreboard method of footballTournamentProcessor
         // when executed
-        FootballScoreboardPrintCommand footballScoreboardPrintCommand
-                = new FootballScoreboardPrintCommand(footballTournamentProcessor);
+        ScoreboardPrintCommand footballScoreboardPrintCommand
+                = new ScoreboardPrintCommand(footballTournamentProcessor);
 
         //        Creating demo data to start matches
         FootballMatchStartRequestDto footballMatchStartRequestDto1
@@ -66,13 +66,13 @@ public class FootballWorldCupDemo {
             FootballMatch footballMatch = footballFactory.createMatch(homeTeam, awayTeam);
             int testMillis = timerIndex * 1000;
             footballMatch.setStartDate(new Date(System.currentTimeMillis() - testMillis));
-            FootballMatchStartCommand matchStartCommand
-                    = new FootballMatchStartCommand(footballTournamentProcessor, footballMatch);
-            footballTournamentCommandExecutor.executeOperation(matchStartCommand);
+            MatchStartCommand matchStartCommand
+                    = new MatchStartCommand(footballTournamentProcessor, footballMatch);
+            tournamentCommandExecutor.executeOperation(matchStartCommand);
             timerIndex--;
         }
 
-        footballTournamentCommandExecutor.executeOperation(footballScoreboardPrintCommand);
+        tournamentCommandExecutor.executeOperation(footballScoreboardPrintCommand);
         System.out.println();
 
         //        Creating demo data to update matches
@@ -100,12 +100,12 @@ public class FootballWorldCupDemo {
             FootballMatch footballMatch = footballFactory.createMatch(homeTeam, awayTeam);
             FootballScore footballScore
                     = new FootballScore(matchUpdateScoreRequestDto.getHomeScore(), matchUpdateScoreRequestDto.getAwayScore());
-            FootballMatchUpdateScoreCommand matchUpdateScoreCommand
-                    = new FootballMatchUpdateScoreCommand(footballTournamentProcessor, footballMatch, footballScore);
-            footballTournamentCommandExecutor.executeOperation(matchUpdateScoreCommand);
+            MatchUpdateScoreCommand matchUpdateScoreCommand
+                    = new MatchUpdateScoreCommand(footballTournamentProcessor, footballMatch, footballScore);
+            tournamentCommandExecutor.executeOperation(matchUpdateScoreCommand);
         }
 
-        footballTournamentCommandExecutor.executeOperation(footballScoreboardPrintCommand);
+        tournamentCommandExecutor.executeOperation(footballScoreboardPrintCommand);
         System.out.println();
 
         //        Creating demo data to end matches
@@ -124,11 +124,11 @@ public class FootballWorldCupDemo {
             FootballTeam homeTeam = footballFactory.createTeam(footballMatchEndRequestDto.getHomeTeam());
             FootballTeam awayTeam = footballFactory.createTeam(footballMatchEndRequestDto.getAwayTeam());
             FootballMatch footballMatch = footballFactory.createMatch(homeTeam, awayTeam);
-            FootballMatchEndCommand matchEndCommand = new FootballMatchEndCommand(footballTournamentProcessor, footballMatch);
-            footballTournamentCommandExecutor.executeOperation(matchEndCommand);
+            MatchEndCommand matchEndCommand = new MatchEndCommand(footballTournamentProcessor, footballMatch);
+            tournamentCommandExecutor.executeOperation(matchEndCommand);
         }
 
-        footballTournamentCommandExecutor.executeOperation(footballScoreboardPrintCommand);
+        tournamentCommandExecutor.executeOperation(footballScoreboardPrintCommand);
         System.out.println();
 
         footballMatchEndRequestDtos.clear();
@@ -140,10 +140,10 @@ public class FootballWorldCupDemo {
             FootballTeam homeTeam = footballFactory.createTeam(footballMatchEndRequestDto.getHomeTeam());
             FootballTeam awayTeam = footballFactory.createTeam(footballMatchEndRequestDto.getAwayTeam());
             FootballMatch footballMatch = footballFactory.createMatch(homeTeam, awayTeam);
-            FootballMatchEndCommand matchEndCommand = new FootballMatchEndCommand(footballTournamentProcessor, footballMatch);
-            footballTournamentCommandExecutor.executeOperation(matchEndCommand);
+            MatchEndCommand matchEndCommand = new MatchEndCommand(footballTournamentProcessor, footballMatch);
+            tournamentCommandExecutor.executeOperation(matchEndCommand);
         }
 
-        footballTournamentCommandExecutor.executeOperation(footballScoreboardPrintCommand);
+        tournamentCommandExecutor.executeOperation(footballScoreboardPrintCommand);
     }
 }

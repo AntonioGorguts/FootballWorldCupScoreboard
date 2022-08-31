@@ -3,14 +3,14 @@ package scoreboard.common.model.match;
 import scoreboard.common.model.score.TeamScore;
 import scoreboard.common.model.team.Team;
 
-public interface TeamMatch extends Match {
-    Team getHomeTeam();
+public abstract class TeamMatch implements Match {
+    public abstract Team getHomeTeam();
 
-    Team getAwayTeam();
+    public abstract Team getAwayTeam();
 
-    TeamScore getScore();
+    public abstract TeamScore getScore();
 
-    Integer getScoreTotal();
+    public abstract Integer getScoreTotal();
 
-    String toStringWithScore();
+    public abstract String toStringWithScore();
 }

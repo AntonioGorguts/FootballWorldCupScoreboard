@@ -1,10 +1,12 @@
 package scoreboard.common.model.tournament;
 
+import scoreboard.common.model.match.Match;
+
 import java.util.List;
 
-public interface Tournament<Match> {
-    List<Match> getActiveMatches();
-    List<Match> getSortedMatches();
-    void addActiveMatch(Match match);
-    void removeActiveMatch(Match match);
+public interface Tournament<T extends Match> {
+    List<T> getActiveMatches();
+    List<T> getSortedMatches();
+    void addActiveMatch(T match);
+    void removeActiveMatch(T match);
 }
