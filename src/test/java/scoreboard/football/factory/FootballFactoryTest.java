@@ -4,15 +4,23 @@ import org.junit.Test;
 import scoreboard.common.model.match.TeamMatch;
 import scoreboard.common.model.score.TeamScore;
 import scoreboard.common.model.team.Team;
+import scoreboard.common.model.tournament.TeamTournament;
+import scoreboard.common.processor.TeamTournamentProcessor;
 import scoreboard.exception.MatchCommonException;
+import scoreboard.football.datagenerator.FootballComparatorDataGenerator;
 import scoreboard.football.model.FootballMatch;
 import scoreboard.football.model.FootballScore;
 import scoreboard.football.model.FootballTeam;
+import scoreboard.football.model.FootballTournament;
+import scoreboard.football.processor.FootballTeamTournamentProcessor;
 import scoreboard.util.ErrorMessageUtil;
+
+import java.util.Comparator;
 
 import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThrows;
 
 public class FootballFactoryTest {
@@ -192,5 +200,56 @@ public class FootballFactoryTest {
         assertThat(footballScore, instanceOf(FootballScore.class));
         assertEquals(footballScore.getHomeScore(), Integer.valueOf(2));
         assertEquals(footballScore.getAwayScore(), Integer.valueOf(0));
+    }
+
+    @Test
+    public void shouldCreateFootballTournamentWithDefaultComparator(){
+        //GIVEN WHEN
+        TeamTournament tournament = footballFactory.createTournament(null);
+
+        //THEN
+        assertThat(tournament, instanceOf(FootballTournament.class));
+
+        FootballTournament footballTournament = (FootballTournament) tournament;
+        assertNotNull(footballTournament.getMatchComparator());
+    }
+
+    @Test
+    public void shouldCreateFootballTournamentWithComparator(){
+        //GIVEN WHEN
+        Comparator<FootballMatch> matchComparator = FootballComparatorDataGenerator.getDefaultComparator();
+        TeamTournament tournament = footballFactory.createTournament(matchComparator);
+
+        //THEN
+        assertThat(tournament, instanceOf(FootballTournament.class));
+
+        FootballTournament footballTournament = (FootballTournament) tournament;
+        assertEquals(matchComparator, footballTournament.getMatchComparator());
+    }
+
+    @Test
+    public void shouldCreateFootballTournamentProcessor(){
+        //GIVEN WHEN
+        FootballTournament footballTournament = new FootballTournament();
+        TeamTournamentProcessor tournamentProcessor = footballFactory.createTournamentProcessor(footballTournament);
+
+        //THEN
+        assertThat(tournamentProcessor, instanceOf(FootballTeamTournamentProcessor.class));
+
+        FootballTeamTournamentProcessor footballTeamTournamentProcessor = (FootballTeamTournamentProcessor) tournamentProcessor;
+        assertNotNull(footballTeamTournamentProcessor.getFootballTournament());
+    }
+
+    @Test
+    public void shouldNotCreateFootballTournamentProcessorWhenTournamentIsNull(){
+        //GIVEN
+        FootballTournament footballTournament = null;
+
+        //WHEN
+        MatchCommonException exception = assertThrows(MatchCommonException.class,
+                () -> footballFactory.createTournamentProcessor(footballTournament));
+
+        //THEN
+        assertEquals(ErrorMessageUtil.TOURNAMENT_NOT_NULL, exception.getMessage());
     }
 }

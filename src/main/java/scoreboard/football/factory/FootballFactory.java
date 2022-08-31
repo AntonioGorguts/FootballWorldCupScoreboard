@@ -70,6 +70,7 @@ public class FootballFactory implements
     public FootballTeamTournamentProcessor createTournamentProcessor(FootballTournament tournament) {
         if(tournament == null){
             LOGGER.error("Tournament for the FootballTeamTournamentProcessor was not initialized");
+            throw new MatchCommonException(ErrorMessageUtil.TOURNAMENT_NOT_NULL);
         }
         return new FootballTeamTournamentProcessor(tournament);
     }
