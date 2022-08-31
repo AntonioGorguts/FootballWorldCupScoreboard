@@ -2,11 +2,9 @@ package scoreboard.football.processor;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
-import scoreboard.common.processor.ScoreboardProcessor;
 import scoreboard.exception.MatchCommonException;
 import scoreboard.football.model.FootballMatch;
 import scoreboard.football.model.FootballScore;
-import scoreboard.common.processor.TeamProcessor;
 import scoreboard.common.processor.TeamTournamentProcessor;
 import scoreboard.football.model.FootballTeam;
 import scoreboard.football.model.FootballTournament;

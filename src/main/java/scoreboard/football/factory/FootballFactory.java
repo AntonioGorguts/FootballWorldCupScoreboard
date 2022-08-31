@@ -13,7 +13,8 @@ import scoreboard.util.ErrorMessageUtil;
 
 import java.util.Comparator;
 
-public class FootballFactory implements AbstractTeamSportFactory<FootballTeam, FootballMatch, FootballTournament, FootballScore, FootballTeamTournamentProcessor>{
+public class FootballFactory implements
+        AbstractTeamSportFactory<FootballTeam, FootballMatch, FootballTournament, FootballScore, FootballTeamTournamentProcessor>{
 
     private static final Logger LOGGER = Logger.getLogger(FootballFactory.class);
 

@@ -4,9 +4,9 @@ import scoreboard.common.model.match.Match;
 
 import java.util.List;
 
-public interface Tournament<T extends Match> {
-    List<T> getActiveMatches();
-    List<T> getSortedMatches();
-    void addActiveMatch(T match);
-    void removeActiveMatch(T match);
+public interface Tournament<M extends Match> {
+    List<M> getActiveMatches();
+    List<M> getSortedMatches();
+    void addActiveMatch(M match);
+    void removeActiveMatch(M match);
 }

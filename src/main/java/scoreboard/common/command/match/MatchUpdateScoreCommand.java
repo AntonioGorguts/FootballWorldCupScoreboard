@@ -1,7 +1,5 @@
 package scoreboard.common.command.match;
 
-import scoreboard.common.command.match.MatchCommand;
-import scoreboard.common.model.match.Match;
 import scoreboard.common.model.match.TeamMatch;
 import scoreboard.common.model.score.TeamScore;
 import scoreboard.common.processor.TeamTournamentProcessor;
