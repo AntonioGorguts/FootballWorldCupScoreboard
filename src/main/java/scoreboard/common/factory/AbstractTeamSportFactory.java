@@ -1,6 +1,5 @@
 package scoreboard.common.factory;
 
-
 import scoreboard.common.model.match.TeamMatch;
 import scoreboard.common.model.score.TeamScore;
 import scoreboard.common.model.team.Team;

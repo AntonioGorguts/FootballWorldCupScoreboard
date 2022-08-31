@@ -19,15 +19,15 @@ import scoreboard.football.processor.FootballTeamTournamentProcessor;
 import java.util.function.Supplier;
 
 public enum MatchType {
-    FOOTBALL("Football", new FootballFactory());
+    FOOTBALL("Football", FootballFactory::new);
 
     private static final Logger LOGGER = Logger.getLogger(MatchType.class);
 
     private final String name;
-    private final AbstractTeamSportFactory factoryInstance;
+    private final Supplier<AbstractTeamSportFactory> instantiation;
 
-    MatchType(String name, AbstractTeamSportFactory factoryInstance) {
-        this.factoryInstance = factoryInstance;
+    MatchType(String name, Supplier<AbstractTeamSportFactory> instantiation) {
+        this.instantiation = instantiation;
         this.name = name;
     }
 
@@ -36,7 +36,7 @@ public enum MatchType {
     }
 
     public AbstractTeamSportFactory getFactoryInstance(){
-        return factoryInstance;
+        return instantiation.get();
     }
 
     public static MatchType getTypeByName(String name) {
