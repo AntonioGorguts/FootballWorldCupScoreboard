@@ -1,8 +1,8 @@
 package demo;
 
-import scoreboard.common.command.match.TeamMatchEndCommandTeam;
-import scoreboard.common.command.match.TeamMatchStartCommandTeam;
-import scoreboard.common.command.match.TeamMatchUpdateScoreCommandTeam;
+import scoreboard.common.command.match.TeamMatchEndCommand;
+import scoreboard.common.command.match.TeamMatchStartCommand;
+import scoreboard.common.command.match.TeamMatchUpdateScoreCommand;
 import scoreboard.common.command.scoreboard.TeamScoreboardPrintCommand;
 import scoreboard.common.command.tournament.TeamTournamentCommandExecutor;
 import scoreboard.football.factory.FootballFactory;
@@ -66,8 +66,8 @@ public class FootballWorldCupDemo {
             FootballMatch footballMatch = footballFactory.createMatch(homeTeam, awayTeam);
             int testMillis = timerIndex * 1000;
             footballMatch.setStartDate(new Date(System.currentTimeMillis() - testMillis));
-            TeamMatchStartCommandTeam matchStartCommand
-                    = new TeamMatchStartCommandTeam(footballTournamentProcessor, footballMatch);
+            TeamMatchStartCommand matchStartCommand
+                    = new TeamMatchStartCommand(footballTournamentProcessor, footballMatch);
             teamTournamentCommandExecutor.executeOperation(matchStartCommand);
             timerIndex--;
         }
@@ -100,8 +100,8 @@ public class FootballWorldCupDemo {
             FootballMatch footballMatch = footballFactory.createMatch(homeTeam, awayTeam);
             FootballScore footballScore
                     = new FootballScore(matchUpdateScoreRequestDto.getHomeScore(), matchUpdateScoreRequestDto.getAwayScore());
-            TeamMatchUpdateScoreCommandTeam matchUpdateScoreCommand
-                    = new TeamMatchUpdateScoreCommandTeam(footballTournamentProcessor, footballMatch, footballScore);
+            TeamMatchUpdateScoreCommand matchUpdateScoreCommand
+                    = new TeamMatchUpdateScoreCommand(footballTournamentProcessor, footballMatch, footballScore);
             teamTournamentCommandExecutor.executeOperation(matchUpdateScoreCommand);
         }
 
@@ -124,7 +124,7 @@ public class FootballWorldCupDemo {
             FootballTeam homeTeam = footballFactory.createTeam(footballMatchEndRequestDto.getHomeTeam());
             FootballTeam awayTeam = footballFactory.createTeam(footballMatchEndRequestDto.getAwayTeam());
             FootballMatch footballMatch = footballFactory.createMatch(homeTeam, awayTeam);
-            TeamMatchEndCommandTeam matchEndCommand = new TeamMatchEndCommandTeam(footballTournamentProcessor, footballMatch);
+            TeamMatchEndCommand matchEndCommand = new TeamMatchEndCommand(footballTournamentProcessor, footballMatch);
             teamTournamentCommandExecutor.executeOperation(matchEndCommand);
         }
 
@@ -140,7 +140,7 @@ public class FootballWorldCupDemo {
             FootballTeam homeTeam = footballFactory.createTeam(footballMatchEndRequestDto.getHomeTeam());
             FootballTeam awayTeam = footballFactory.createTeam(footballMatchEndRequestDto.getAwayTeam());
             FootballMatch footballMatch = footballFactory.createMatch(homeTeam, awayTeam);
-            TeamMatchEndCommandTeam matchEndCommand = new TeamMatchEndCommandTeam(footballTournamentProcessor, footballMatch);
+            TeamMatchEndCommand matchEndCommand = new TeamMatchEndCommand(footballTournamentProcessor, footballMatch);
             teamTournamentCommandExecutor.executeOperation(matchEndCommand);
         }
 

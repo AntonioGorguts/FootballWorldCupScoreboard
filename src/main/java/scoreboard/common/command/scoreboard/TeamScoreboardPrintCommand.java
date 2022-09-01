@@ -10,6 +10,11 @@ public class TeamScoreboardPrintCommand extends TeamTournamentCommand {
     }
 
     @Override
+    public String toString() {
+        return TeamScoreboardPrintCommand.class.getSimpleName();
+    }
+
+    @Override
     public void execute() {
         tournamentProcessor.printScoreboard();
     }

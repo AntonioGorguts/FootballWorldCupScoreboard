@@ -3,6 +3,7 @@ package scoreboard.football.model;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import scoreboard.common.model.match.TeamMatch;
+import scoreboard.common.model.type.TeamMatchType;
 import scoreboard.util.ErrorMessageUtil;
 
 import java.util.Date;
@@ -63,6 +64,11 @@ public class FootballMatch extends TeamMatch {
     @Override
     public String toString() {
         return homeTeam.toString() + " - " + awayTeam.toString();
+    }
+
+    @Override
+    public String getMatchType() {
+        return TeamMatchType.FOOTBALL.getName();
     }
 
     @Override

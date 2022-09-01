@@ -14,6 +14,11 @@ public class TeamScoreboardExportCommand extends TeamTournamentCommand {
         super(tournamentProcessor);
     }
 
+    @Override
+    public String toString() {
+        return TeamScoreboardExportCommand.class.getSimpleName();
+    }
+
     public List<String> getScoreboard() {
         return scoreboard;
     }

@@ -1,9 +1,9 @@
 package scoreboard.football.command;
 
 import org.junit.Test;
-import scoreboard.common.command.match.TeamMatchEndCommandTeam;
-import scoreboard.common.command.match.TeamMatchStartCommandTeam;
-import scoreboard.common.command.match.TeamMatchUpdateScoreCommandTeam;
+import scoreboard.common.command.match.TeamMatchEndCommand;
+import scoreboard.common.command.match.TeamMatchStartCommand;
+import scoreboard.common.command.match.TeamMatchUpdateScoreCommand;
 import scoreboard.common.command.scoreboard.TeamScoreboardExportCommand;
 import scoreboard.common.command.scoreboard.TeamScoreboardPrintCommand;
 import scoreboard.common.command.tournament.TeamTournamentCommandExecutor;
@@ -31,7 +31,7 @@ public class FootballCommandTest {
     public void shouldExecuteMatchStartCommand(){
         //GIVEN
         FootballMatch match = FootballMatchDataGenerator.getPresentFootballMatch();
-        TeamMatchStartCommandTeam matchStartCommand = spy(new TeamMatchStartCommandTeam(footballTournamentProcessor, match));
+        TeamMatchStartCommand matchStartCommand = spy(new TeamMatchStartCommand(footballTournamentProcessor, match));
 
         //WHEN
         teamTournamentCommandExecutor.executeOperation(matchStartCommand);
@@ -45,7 +45,7 @@ public class FootballCommandTest {
     public void shouldExecuteMatchEndCommand(){
         //GIVEN
         FootballMatch match = FootballMatchDataGenerator.getPresentFootballMatch();
-        TeamMatchEndCommandTeam matchEndCommand = spy(new TeamMatchEndCommandTeam(footballTournamentProcessor, match));
+        TeamMatchEndCommand matchEndCommand = spy(new TeamMatchEndCommand(footballTournamentProcessor, match));
 
         //WHEN
         teamTournamentCommandExecutor.executeOperation(matchEndCommand);
@@ -60,7 +60,7 @@ public class FootballCommandTest {
         //GIVEN
         FootballMatch match = FootballMatchDataGenerator.getPresentFootballMatch();
         FootballScore score = new FootballScore(1,0);
-        TeamMatchUpdateScoreCommandTeam matchUpdateScoreCommand = spy(new TeamMatchUpdateScoreCommandTeam(footballTournamentProcessor, match, score));
+        TeamMatchUpdateScoreCommand matchUpdateScoreCommand = spy(new TeamMatchUpdateScoreCommand(footballTournamentProcessor, match, score));
 
         //WHEN
         teamTournamentCommandExecutor.executeOperation(matchUpdateScoreCommand);

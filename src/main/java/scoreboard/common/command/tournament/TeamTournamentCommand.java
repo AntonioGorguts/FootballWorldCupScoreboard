@@ -10,4 +10,7 @@ public abstract class TeamTournamentCommand implements Command {
     protected TeamTournamentCommand(TeamTournamentProcessor tournamentProcessor) {
         this.tournamentProcessor = tournamentProcessor;
     }
+
+    @Override
+    abstract public String toString();
 }

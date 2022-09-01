@@ -4,11 +4,11 @@ import datagenerator.FootballMatchRequestDtoDataGenerator;
 import demo.request.FootballMatchEndRequestDto;
 import demo.request.FootballMatchStartRequestDto;
 import demo.request.FootballMatchUpdateScoreRequestDto;
-import scoreboard.common.command.match.TeamMatchEndCommandTeam;
-import scoreboard.common.command.match.TeamMatchUpdateScoreCommandTeam;
+import scoreboard.common.command.match.TeamMatchEndCommand;
+import scoreboard.common.command.match.TeamMatchUpdateScoreCommand;
 import scoreboard.common.factory.producer.TeamFactoryProducer;
 import org.junit.Test;
-import scoreboard.common.command.match.TeamMatchStartCommandTeam;
+import scoreboard.common.command.match.TeamMatchStartCommand;
 import scoreboard.common.command.scoreboard.TeamScoreboardExportCommand;
 import scoreboard.common.factory.AbstractTeamSportFactory;
 import scoreboard.common.model.match.TeamMatch;
@@ -78,8 +78,8 @@ public class FootballTournamentProcessorIT {
 
             int testMillis = timerIndex * 1000;
             footballMatch.setStartDate(new Date(System.currentTimeMillis() - testMillis));
-            TeamMatchStartCommandTeam matchStartCommand
-                    = new TeamMatchStartCommandTeam(tournamentProcessor, footballMatch);
+            TeamMatchStartCommand matchStartCommand
+                    = new TeamMatchStartCommand(tournamentProcessor, footballMatch);
             teamTournamentCommandExecutor.executeOperation(matchStartCommand);
             timerIndex--;
         }
@@ -115,8 +115,8 @@ public class FootballTournamentProcessorIT {
             TeamMatch footballMatch = factory.createMatch(homeTeam, awayTeam);
             int testMillis = timerIndex * 1000;
             footballMatch.setStartDate(new Date(System.currentTimeMillis() - testMillis));
-            TeamMatchStartCommandTeam matchStartCommand
-                    = new TeamMatchStartCommandTeam(tournamentProcessor, footballMatch);
+            TeamMatchStartCommand matchStartCommand
+                    = new TeamMatchStartCommand(tournamentProcessor, footballMatch);
             teamTournamentCommandExecutor.executeOperation(matchStartCommand);
             timerIndex--;
         }
@@ -126,7 +126,7 @@ public class FootballTournamentProcessorIT {
             Team homeTeam = factory.createTeam(footballMatchEndRequestDto.getHomeTeam());
             Team awayTeam = factory.createTeam(footballMatchEndRequestDto.getAwayTeam());
             TeamMatch footballMatch = factory.createMatch(homeTeam, awayTeam);
-            TeamMatchEndCommandTeam matchEndCommand = new TeamMatchEndCommandTeam(tournamentProcessor, footballMatch);
+            TeamMatchEndCommand matchEndCommand = new TeamMatchEndCommand(tournamentProcessor, footballMatch);
             teamTournamentCommandExecutor.executeOperation(matchEndCommand);
         }
 
@@ -153,8 +153,8 @@ public class FootballTournamentProcessorIT {
             TeamMatch footballMatch = factory.createMatch(homeTeam, awayTeam);
             int testMillis = timerIndex * 1000;
             footballMatch.setStartDate(new Date(System.currentTimeMillis() - testMillis));
-            TeamMatchStartCommandTeam matchStartCommand
-                    = new TeamMatchStartCommandTeam(tournamentProcessor, footballMatch);
+            TeamMatchStartCommand matchStartCommand
+                    = new TeamMatchStartCommand(tournamentProcessor, footballMatch);
             teamTournamentCommandExecutor.executeOperation(matchStartCommand);
             timerIndex--;
         }
@@ -167,8 +167,8 @@ public class FootballTournamentProcessorIT {
             TeamMatch footballMatch = factory.createMatch(homeTeam, awayTeam);
             TeamScore footballScore
                     = factory.createScore(matchUpdateScoreRequestDto.getHomeScore(), matchUpdateScoreRequestDto.getAwayScore());
-            TeamMatchUpdateScoreCommandTeam matchUpdateScoreCommand
-                    = new TeamMatchUpdateScoreCommandTeam(tournamentProcessor, footballMatch, footballScore);
+            TeamMatchUpdateScoreCommand matchUpdateScoreCommand
+                    = new TeamMatchUpdateScoreCommand(tournamentProcessor, footballMatch, footballScore);
             teamTournamentCommandExecutor.executeOperation(matchUpdateScoreCommand);
         }
 
@@ -209,8 +209,8 @@ public class FootballTournamentProcessorIT {
             TeamMatch footballMatch = factory.createMatch(homeTeam, awayTeam);
             int testMillis = timerIndex * 1000;
             footballMatch.setStartDate(new Date(System.currentTimeMillis() - testMillis));
-            TeamMatchStartCommandTeam matchStartCommand
-                    = new TeamMatchStartCommandTeam(tournamentProcessor, footballMatch);
+            TeamMatchStartCommand matchStartCommand
+                    = new TeamMatchStartCommand(tournamentProcessor, footballMatch);
             teamTournamentCommandExecutor.executeOperation(matchStartCommand);
             timerIndex--;
         }

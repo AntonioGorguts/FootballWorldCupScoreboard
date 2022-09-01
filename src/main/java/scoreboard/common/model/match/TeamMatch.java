@@ -13,4 +13,9 @@ public abstract class TeamMatch implements Match {
     public abstract Integer getScoreTotal();
 
     public abstract String toStringWithScore();
+
+    @Override
+    public abstract String toString();
+
+    public abstract String getMatchType();
 }
