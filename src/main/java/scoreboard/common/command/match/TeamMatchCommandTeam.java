@@ -1,13 +1,14 @@
 package scoreboard.common.command.match;
 
-import scoreboard.common.command.tournament.TournamentCommand;
+import scoreboard.common.command.tournament.TeamTournamentCommand;
 import scoreboard.common.model.match.TeamMatch;
 import scoreboard.common.processor.TeamTournamentProcessor;
 
-public abstract class MatchCommand extends TournamentCommand {
-    private final TeamMatch match;
+public abstract class TeamMatchCommandTeam extends TeamTournamentCommand {
 
-    public MatchCommand(TeamTournamentProcessor tournamentProcessor, TeamMatch match) {
+    protected final TeamMatch match;
+
+    protected TeamMatchCommandTeam(TeamTournamentProcessor tournamentProcessor, TeamMatch match) {
         super(tournamentProcessor);
         this.match = match;
     }

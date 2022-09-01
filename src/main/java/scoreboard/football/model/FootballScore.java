@@ -5,7 +5,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import scoreboard.common.model.score.TeamScore;
 import scoreboard.util.ErrorMessageUtil;
 
-public class FootballScore implements TeamScore {
+public class FootballScore extends TeamScore {
     private Integer homeScore;
     private Integer awayScore;
 

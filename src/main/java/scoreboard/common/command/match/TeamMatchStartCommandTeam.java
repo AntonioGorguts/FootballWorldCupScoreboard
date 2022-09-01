@@ -3,14 +3,14 @@ package scoreboard.common.command.match;
 import scoreboard.common.model.match.TeamMatch;
 import scoreboard.common.processor.TeamTournamentProcessor;
 
-public class MatchStartCommand extends MatchCommand {
+public class TeamMatchStartCommandTeam extends TeamMatchCommandTeam {
 
-    public MatchStartCommand(TeamTournamentProcessor tournamentProcessor, TeamMatch match) {
+    public TeamMatchStartCommandTeam(TeamTournamentProcessor tournamentProcessor, TeamMatch match) {
         super(tournamentProcessor, match);
     }
 
     @Override
     public void execute() {
-         getTournamentProcessor().startMatch(getMatch());
+        tournamentProcessor.startMatch(match);
     }
 }

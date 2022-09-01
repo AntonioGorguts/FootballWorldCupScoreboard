@@ -1,45 +1,45 @@
 package scoreboard.common.type;
 
 import org.junit.Test;
-import scoreboard.common.model.type.MatchType;
+import scoreboard.common.model.type.TeamMatchType;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
-public class MatchTypeTest {
+public class TeamMatchTypeTest {
     @Test
     public void shouldGetFootballMatchTypeByTypeName(){
         //GIVEN WHEN
-        MatchType matchType = MatchType.getTypeByName("Football");
+        TeamMatchType teamMatchType = TeamMatchType.getTypeByName("Football");
 
         //THEN
-        assertEquals(matchType, MatchType.FOOTBALL);
+        assertEquals(teamMatchType, TeamMatchType.FOOTBALL);
     }
 
     @Test
     public void shouldGetFootballMatchTypeByTypeNameIgnoresCase(){
         //GIVEN WHEN
-        MatchType matchType = MatchType.getTypeByName("FootbaLL");
+        TeamMatchType teamMatchType = TeamMatchType.getTypeByName("FootbaLL");
 
         //THEN
-        assertEquals(matchType, MatchType.FOOTBALL);
+        assertEquals(teamMatchType, TeamMatchType.FOOTBALL);
     }
 
     @Test
     public void shouldNotGetFootballMatchTypeByWrongTypeName(){
         //GIVEN WHEN
-        MatchType matchType = MatchType.getTypeByName("Sooooccceerrr");
+        TeamMatchType teamMatchType = TeamMatchType.getTypeByName("Sooooccceerrr");
 
         //THEN
-        assertNull(matchType);
+        assertNull(teamMatchType);
     }
 
     @Test
     public void shouldNotGetMatchTypeByBlankName(){
         //GIVEN WHEN
-        MatchType matchType = MatchType.getTypeByName(" ");
+        TeamMatchType teamMatchType = TeamMatchType.getTypeByName(" ");
 
         //THEN
-        assertNull(matchType);
+        assertNull(teamMatchType);
     }
 }

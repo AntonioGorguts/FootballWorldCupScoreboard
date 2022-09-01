@@ -1,16 +1,16 @@
 package scoreboard.common.command.scoreboard;
 
-import scoreboard.common.command.tournament.TournamentCommand;
+import scoreboard.common.command.tournament.TeamTournamentCommand;
 import scoreboard.common.processor.TeamTournamentProcessor;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ScoreboardExportCommand extends TournamentCommand {
+public class ScoreboardExportCommandTeam extends TeamTournamentCommand {
 
     private List<String> scoreboard = new ArrayList<>();
 
-    public ScoreboardExportCommand(TeamTournamentProcessor tournamentProcessor) {
+    public ScoreboardExportCommandTeam(TeamTournamentProcessor tournamentProcessor) {
         super(tournamentProcessor);
     }
 
@@ -20,6 +20,6 @@ public class ScoreboardExportCommand extends TournamentCommand {
 
     @Override
     public void execute() {
-        scoreboard = getTournamentProcessor().getScoreboard();
+        scoreboard = tournamentProcessor.getScoreboard();
     }
 }

@@ -3,15 +3,15 @@ package scoreboard.common.command.tournament;
 import scoreboard.common.command.Command;
 import scoreboard.common.processor.TeamTournamentProcessor;
 
-public abstract class TournamentCommand implements Command {
+public abstract class TeamTournamentCommand implements Command {
 
-    private final TeamTournamentProcessor tournamentProcessor;
+    protected final TeamTournamentProcessor tournamentProcessor;
 
     public TeamTournamentProcessor getTournamentProcessor(){
         return tournamentProcessor;
     }
 
-    public TournamentCommand(TeamTournamentProcessor tournamentProcessor) {
+    protected TeamTournamentCommand(TeamTournamentProcessor tournamentProcessor) {
         this.tournamentProcessor = tournamentProcessor;
     }
 }

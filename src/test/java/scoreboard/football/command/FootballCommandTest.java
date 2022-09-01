@@ -1,12 +1,12 @@
 package scoreboard.football.command;
 
 import org.junit.Test;
-import scoreboard.common.command.match.MatchEndCommand;
-import scoreboard.common.command.match.MatchStartCommand;
-import scoreboard.common.command.match.MatchUpdateScoreCommand;
-import scoreboard.common.command.scoreboard.ScoreboardExportCommand;
-import scoreboard.common.command.scoreboard.ScoreboardPrintCommand;
-import scoreboard.common.command.tournament.TournamentCommandExecutor;
+import scoreboard.common.command.match.TeamMatchEndCommandTeam;
+import scoreboard.common.command.match.TeamMatchStartCommandTeam;
+import scoreboard.common.command.match.TeamMatchUpdateScoreCommandTeam;
+import scoreboard.common.command.scoreboard.ScoreboardExportCommandTeam;
+import scoreboard.common.command.scoreboard.ScoreboardPrintCommandTeam;
+import scoreboard.common.command.tournament.TeamTournamentCommandExecutor;
 import scoreboard.football.datagenerator.FootballMatchDataGenerator;
 import scoreboard.football.model.FootballMatch;
 import scoreboard.football.model.FootballScore;
@@ -25,16 +25,16 @@ import static org.mockito.Mockito.when;
 public class FootballCommandTest {
 
     private final FootballTeamTournamentProcessor footballTournamentProcessor = mock(FootballTeamTournamentProcessor.class);
-    private final TournamentCommandExecutor tournamentCommandExecutor = new TournamentCommandExecutor();
+    private final TeamTournamentCommandExecutor teamTournamentCommandExecutor = new TeamTournamentCommandExecutor();
 
     @Test
     public void shouldExecuteMatchStartCommand(){
         //GIVEN
         FootballMatch match = FootballMatchDataGenerator.getPresentFootballMatch();
-        MatchStartCommand matchStartCommand = spy(new MatchStartCommand(footballTournamentProcessor, match));
+        TeamMatchStartCommandTeam matchStartCommand = spy(new TeamMatchStartCommandTeam(footballTournamentProcessor, match));
 
         //WHEN
-        tournamentCommandExecutor.executeOperation(matchStartCommand);
+        teamTournamentCommandExecutor.executeOperation(matchStartCommand);
 
         //THEN
         verify(matchStartCommand, times(1)).execute();
@@ -45,10 +45,10 @@ public class FootballCommandTest {
     public void shouldExecuteMatchEndCommand(){
         //GIVEN
         FootballMatch match = FootballMatchDataGenerator.getPresentFootballMatch();
-        MatchEndCommand matchEndCommand = spy(new MatchEndCommand(footballTournamentProcessor, match));
+        TeamMatchEndCommandTeam matchEndCommand = spy(new TeamMatchEndCommandTeam(footballTournamentProcessor, match));
 
         //WHEN
-        tournamentCommandExecutor.executeOperation(matchEndCommand);
+        teamTournamentCommandExecutor.executeOperation(matchEndCommand);
 
         //THEN
         verify(matchEndCommand, times(1)).execute();
@@ -60,10 +60,10 @@ public class FootballCommandTest {
         //GIVEN
         FootballMatch match = FootballMatchDataGenerator.getPresentFootballMatch();
         FootballScore score = new FootballScore(1,0);
-        MatchUpdateScoreCommand matchUpdateScoreCommand = spy(new MatchUpdateScoreCommand(footballTournamentProcessor, match, score));
+        TeamMatchUpdateScoreCommandTeam matchUpdateScoreCommand = spy(new TeamMatchUpdateScoreCommandTeam(footballTournamentProcessor, match, score));
 
         //WHEN
-        tournamentCommandExecutor.executeOperation(matchUpdateScoreCommand);
+        teamTournamentCommandExecutor.executeOperation(matchUpdateScoreCommand);
 
         //THEN
         verify(matchUpdateScoreCommand, times(1)).execute();
@@ -73,10 +73,10 @@ public class FootballCommandTest {
     @Test
     public void shouldExecuteScoreboardPrintCommand(){
         //GIVEN
-        ScoreboardPrintCommand scoreboardPrintCommand = spy(new ScoreboardPrintCommand(footballTournamentProcessor));
+        ScoreboardPrintCommandTeam scoreboardPrintCommand = spy(new ScoreboardPrintCommandTeam(footballTournamentProcessor));
 
         //WHEN
-        tournamentCommandExecutor.executeOperation(scoreboardPrintCommand);
+        teamTournamentCommandExecutor.executeOperation(scoreboardPrintCommand);
 
         //THEN
         verify(scoreboardPrintCommand, times(1)).execute();
@@ -86,10 +86,10 @@ public class FootballCommandTest {
     @Test
     public void shouldExecuteScoreboardExportCommand(){
         //GIVEN
-        ScoreboardExportCommand scoreboardExportCommand = spy(new ScoreboardExportCommand(footballTournamentProcessor));
+        ScoreboardExportCommandTeam scoreboardExportCommand = spy(new ScoreboardExportCommandTeam(footballTournamentProcessor));
 
         //WHEN
-        tournamentCommandExecutor.executeOperation(scoreboardExportCommand);
+        teamTournamentCommandExecutor.executeOperation(scoreboardExportCommand);
 
         //THEN
         verify(scoreboardExportCommand, times(1)).execute();
@@ -99,14 +99,14 @@ public class FootballCommandTest {
     @Test
     public void shouldScoreboardExportThroughCommand(){
         //GIVEN
-        ScoreboardExportCommand scoreboardExportCommand = new ScoreboardExportCommand(footballTournamentProcessor);
+        ScoreboardExportCommandTeam scoreboardExportCommand = new ScoreboardExportCommandTeam(footballTournamentProcessor);
         ArrayList<String> result = new ArrayList<>();
         result.add("Test1");
         result.add("Test2");
 
         //WHEN
         when(footballTournamentProcessor.getScoreboard()).thenReturn(result);
-        tournamentCommandExecutor.executeOperation(scoreboardExportCommand);
+        teamTournamentCommandExecutor.executeOperation(scoreboardExportCommand);
 
         //THEN
         assertEquals(scoreboardExportCommand.getScoreboard(), result);

@@ -5,7 +5,7 @@ import scoreboard.common.model.match.TeamMatch;
 import scoreboard.common.model.score.TeamScore;
 import scoreboard.common.model.team.Team;
 import scoreboard.common.model.tournament.TeamTournament;
-import scoreboard.common.processor.TeamTournamentProcessor;
+import scoreboard.common.processor.TeamProcessor;
 import scoreboard.exception.MatchCommonException;
 import scoreboard.football.datagenerator.FootballComparatorDataGenerator;
 import scoreboard.football.model.FootballMatch;
@@ -231,7 +231,7 @@ public class FootballFactoryTest {
     public void shouldCreateFootballTournamentProcessor(){
         //GIVEN WHEN
         FootballTournament footballTournament = new FootballTournament();
-        TeamTournamentProcessor tournamentProcessor = footballFactory.createTournamentProcessor(footballTournament);
+        TeamProcessor tournamentProcessor = footballFactory.createTournamentProcessor(footballTournament);
 
         //THEN
         assertThat(tournamentProcessor, instanceOf(FootballTeamTournamentProcessor.class));

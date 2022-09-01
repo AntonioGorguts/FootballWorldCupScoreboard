@@ -1,14 +1,10 @@
 package scoreboard.common.factory;
 
 import org.junit.Test;
-import scoreboard.common.factory.producer.FactoryProducer;
-import scoreboard.common.model.tournament.Tournament;
-import scoreboard.common.model.type.MatchType;
-import scoreboard.common.processor.TeamTournamentProcessor;
+import scoreboard.common.factory.producer.TeamFactoryProducer;
+import scoreboard.common.model.type.TeamMatchType;
 import scoreboard.exception.MatchCommonException;
 import scoreboard.football.factory.FootballFactory;
-import scoreboard.football.model.FootballTournament;
-import scoreboard.football.processor.FootballTeamTournamentProcessor;
 import scoreboard.util.ErrorMessageUtil;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -16,11 +12,11 @@ import static org.hamcrest.Matchers.instanceOf;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThrows;
 
-public class FactoryProducerTest {
+public class TeamFactoryProducerTest {
     @Test
     public void shouldCreateFootballTournamentByType(){
         //GIVEN WHEN
-        AbstractTeamSportFactory factory = FactoryProducer.getFactory(MatchType.FOOTBALL);
+        AbstractTeamSportFactory factory = TeamFactoryProducer.getFactory(TeamMatchType.FOOTBALL);
 
         //THEN
         assertThat(factory, instanceOf(FootballFactory.class));
@@ -29,7 +25,7 @@ public class FactoryProducerTest {
     @Test
     public void shouldCreateFootballTournamentByTypeName(){
         //GIVEN WHEN
-        AbstractTeamSportFactory factory = FactoryProducer.getFactory("Football");
+        AbstractTeamSportFactory factory = TeamFactoryProducer.getFactory("Football");
 
         //THEN
         assertThat(factory, instanceOf(FootballFactory.class));
@@ -38,7 +34,7 @@ public class FactoryProducerTest {
     @Test
     public void shouldCreateFootballTournamentByTypeNameIgnoresCase(){
         //GIVEN WHEN
-        AbstractTeamSportFactory factory = FactoryProducer.getFactory("fOOtball");
+        AbstractTeamSportFactory factory = TeamFactoryProducer.getFactory("fOOtball");
 
         //THEN
         assertThat(factory, instanceOf(FootballFactory.class));
@@ -47,11 +43,11 @@ public class FactoryProducerTest {
     @Test
     public void shouldNotCreateFootballTournamentByNullType(){
         //GIVEN
-        MatchType matchType = null;
+        TeamMatchType teamMatchType = null;
 
         //WHEN
         MatchCommonException exception = assertThrows(MatchCommonException.class,
-                () -> FactoryProducer.getFactory(matchType));
+                () -> TeamFactoryProducer.getFactory(teamMatchType));
 
         //THEN
         assertEquals(exception.getMessage(), ErrorMessageUtil.CANNOT_CREATE_FACTORY);
@@ -61,7 +57,7 @@ public class FactoryProducerTest {
     public void shouldNotCreateFootballTournamentByWrongNameType(){
         //GIVEN WHEN
         MatchCommonException exception = assertThrows(MatchCommonException.class,
-                () -> FactoryProducer.getFactory("Socccccer"));
+                () -> TeamFactoryProducer.getFactory("Socccccer"));
 
         //THEN
         assertEquals(exception.getMessage(), ErrorMessageUtil.CANNOT_CREATE_FACTORY);
