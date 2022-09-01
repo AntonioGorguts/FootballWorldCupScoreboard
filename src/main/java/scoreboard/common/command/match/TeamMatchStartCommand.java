@@ -17,6 +17,8 @@ public class TeamMatchStartCommand extends TeamMatchCommand {
 
     @Override
     public String toString() {
-        return TeamMatchStartCommand.class.getSimpleName() + " to match type " + match.getMatchType() + " match " + match;
+        return TeamMatchStartCommand.class.getSimpleName() +
+                " to match type " + match.getMatchType() +
+                " match " + match;
     }
 }

@@ -19,9 +19,9 @@ public class TeamMatchUpdateScoreCommand extends TeamMatchCommand {
 
     @Override
     public String toString() {
-        return TeamMatchUpdateScoreCommand.class.getSimpleName()
-                + " to match type " + match.getMatchType()
-                + " match " + match +
+        return TeamMatchUpdateScoreCommand.class.getSimpleName() +
+                " to match type " + match.getMatchType() +
+                " match " + match +
                 " with " + score.toString();
     }
 }
