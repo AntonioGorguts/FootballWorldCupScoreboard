@@ -26,6 +26,15 @@ public class TeamMatchTypeTest {
     }
 
     @Test
+    public void shouldGetFootballMatchTypeByTypeNameFromType(){
+        //GIVEN WHEN
+        TeamMatchType teamMatchType = TeamMatchType.getTypeByName(TeamMatchType.FOOTBALL.getName());
+
+        //THEN
+        assertEquals(teamMatchType, TeamMatchType.FOOTBALL);
+    }
+
+    @Test
     public void shouldNotGetFootballMatchTypeByWrongTypeName(){
         //GIVEN WHEN
         TeamMatchType teamMatchType = TeamMatchType.getTypeByName("Sooooccceerrr");

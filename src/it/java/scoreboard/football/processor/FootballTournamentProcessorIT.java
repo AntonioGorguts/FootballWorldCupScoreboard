@@ -9,7 +9,7 @@ import scoreboard.common.command.match.TeamMatchUpdateScoreCommandTeam;
 import scoreboard.common.factory.producer.TeamFactoryProducer;
 import org.junit.Test;
 import scoreboard.common.command.match.TeamMatchStartCommandTeam;
-import scoreboard.common.command.scoreboard.ScoreboardExportCommandTeam;
+import scoreboard.common.command.scoreboard.TeamScoreboardExportCommand;
 import scoreboard.common.factory.AbstractTeamSportFactory;
 import scoreboard.common.model.match.TeamMatch;
 import scoreboard.common.model.score.TeamScore;
@@ -198,7 +198,7 @@ public class FootballTournamentProcessorIT {
         TeamTournamentProcessor tournamentProcessor = factory.createTournamentProcessor(tournament);
         List<FootballMatchStartRequestDto> footballMatchStartRequestDtos = FootballMatchRequestDtoDataGenerator.getMatchStartRequestDtos();
         TeamTournamentCommandExecutor teamTournamentCommandExecutor = new TeamTournamentCommandExecutor();
-        ScoreboardExportCommandTeam scoreboardExportCommand = new ScoreboardExportCommandTeam(tournamentProcessor);
+        TeamScoreboardExportCommand scoreboardExportCommand = new TeamScoreboardExportCommand(tournamentProcessor);
         int timerIndex = footballMatchStartRequestDtos.size();
 
         //WHEN THEN

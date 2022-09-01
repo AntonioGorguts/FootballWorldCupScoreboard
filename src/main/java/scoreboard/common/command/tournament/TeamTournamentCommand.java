@@ -7,10 +7,6 @@ public abstract class TeamTournamentCommand implements Command {
 
     protected final TeamTournamentProcessor tournamentProcessor;
 
-    public TeamTournamentProcessor getTournamentProcessor(){
-        return tournamentProcessor;
-    }
-
     protected TeamTournamentCommand(TeamTournamentProcessor tournamentProcessor) {
         this.tournamentProcessor = tournamentProcessor;
     }

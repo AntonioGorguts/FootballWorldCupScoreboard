@@ -4,8 +4,8 @@ import org.junit.Test;
 import scoreboard.common.command.match.TeamMatchEndCommandTeam;
 import scoreboard.common.command.match.TeamMatchStartCommandTeam;
 import scoreboard.common.command.match.TeamMatchUpdateScoreCommandTeam;
-import scoreboard.common.command.scoreboard.ScoreboardExportCommandTeam;
-import scoreboard.common.command.scoreboard.ScoreboardPrintCommandTeam;
+import scoreboard.common.command.scoreboard.TeamScoreboardExportCommand;
+import scoreboard.common.command.scoreboard.TeamScoreboardPrintCommand;
 import scoreboard.common.command.tournament.TeamTournamentCommandExecutor;
 import scoreboard.football.datagenerator.FootballMatchDataGenerator;
 import scoreboard.football.model.FootballMatch;
@@ -73,7 +73,7 @@ public class FootballCommandTest {
     @Test
     public void shouldExecuteScoreboardPrintCommand(){
         //GIVEN
-        ScoreboardPrintCommandTeam scoreboardPrintCommand = spy(new ScoreboardPrintCommandTeam(footballTournamentProcessor));
+        TeamScoreboardPrintCommand scoreboardPrintCommand = spy(new TeamScoreboardPrintCommand(footballTournamentProcessor));
 
         //WHEN
         teamTournamentCommandExecutor.executeOperation(scoreboardPrintCommand);
@@ -86,7 +86,7 @@ public class FootballCommandTest {
     @Test
     public void shouldExecuteScoreboardExportCommand(){
         //GIVEN
-        ScoreboardExportCommandTeam scoreboardExportCommand = spy(new ScoreboardExportCommandTeam(footballTournamentProcessor));
+        TeamScoreboardExportCommand scoreboardExportCommand = spy(new TeamScoreboardExportCommand(footballTournamentProcessor));
 
         //WHEN
         teamTournamentCommandExecutor.executeOperation(scoreboardExportCommand);
@@ -99,7 +99,7 @@ public class FootballCommandTest {
     @Test
     public void shouldScoreboardExportThroughCommand(){
         //GIVEN
-        ScoreboardExportCommandTeam scoreboardExportCommand = new ScoreboardExportCommandTeam(footballTournamentProcessor);
+        TeamScoreboardExportCommand scoreboardExportCommand = new TeamScoreboardExportCommand(footballTournamentProcessor);
         ArrayList<String> result = new ArrayList<>();
         result.add("Test1");
         result.add("Test2");

@@ -15,19 +15,19 @@ public enum TeamMatchType {
     private static final Logger LOGGER = Logger.getLogger(TeamMatchType.class);
 
     private final String name;
-    private final Supplier<AbstractTeamSportFactory> instantiation;
+    private final Supplier<AbstractTeamSportFactory> factorySupplier;
 
-    TeamMatchType(String name, Supplier<AbstractTeamSportFactory> instantiation) {
-        this.instantiation = instantiation;
+    TeamMatchType(String name, Supplier<AbstractTeamSportFactory> factorySupplier) {
+        this.factorySupplier = factorySupplier;
         this.name = name;
     }
 
-    private String getName() {
+    public String getName() {
         return name;
     }
 
     public AbstractTeamSportFactory getFactoryInstance() {
-        return instantiation.get();
+        return factorySupplier.get();
     }
 
     public static TeamMatchType getTypeByName(String name) {

@@ -12,8 +12,4 @@ public abstract class TeamMatchCommandTeam extends TeamTournamentCommand {
         super(tournamentProcessor);
         this.match = match;
     }
-
-    public TeamMatch getMatch() {
-        return match;
-    }
 }

@@ -6,11 +6,11 @@ import scoreboard.common.processor.TeamTournamentProcessor;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ScoreboardExportCommandTeam extends TeamTournamentCommand {
+public class TeamScoreboardExportCommand extends TeamTournamentCommand {
 
     private List<String> scoreboard = new ArrayList<>();
 
-    public ScoreboardExportCommandTeam(TeamTournamentProcessor tournamentProcessor) {
+    public TeamScoreboardExportCommand(TeamTournamentProcessor tournamentProcessor) {
         super(tournamentProcessor);
     }
 

@@ -3,7 +3,7 @@ package demo;
 import scoreboard.common.command.match.TeamMatchEndCommandTeam;
 import scoreboard.common.command.match.TeamMatchStartCommandTeam;
 import scoreboard.common.command.match.TeamMatchUpdateScoreCommandTeam;
-import scoreboard.common.command.scoreboard.ScoreboardPrintCommandTeam;
+import scoreboard.common.command.scoreboard.TeamScoreboardPrintCommand;
 import scoreboard.common.command.tournament.TeamTournamentCommandExecutor;
 import scoreboard.football.factory.FootballFactory;
 import scoreboard.football.model.FootballMatch;
@@ -37,8 +37,8 @@ public class FootballWorldCupDemo {
 
         // Instantiate the footballScoreboardPrintCommand, that will call print scoreboard method of footballTournamentProcessor
         // when executed
-        ScoreboardPrintCommandTeam footballScoreboardPrintCommand
-                = new ScoreboardPrintCommandTeam(footballTournamentProcessor);
+        TeamScoreboardPrintCommand footballScoreboardPrintCommand
+                = new TeamScoreboardPrintCommand(footballTournamentProcessor);
 
         //        Creating demo data to start matches
         FootballMatchStartRequestDto footballMatchStartRequestDto1
